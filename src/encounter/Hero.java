@@ -6,10 +6,10 @@ public class Hero extends EncounterActor {
 	public int level, xp, proficiencyBonus, nextLvlXP, gold, hpGainedPerLevel;
 	public boolean inspiration, spellcaster;
 	String name, race;
-	ArrayList<Spell> spellsKnown;
-	ArrayList<Spell> spellsPrepared;
-	ArrayList<String> proficiencies, languages, feats, skillProficiencies;
+	ArrayList<Spell> spellsKnown, spellsPrepared;
+	ArrayList<String> proficiencies, cantripsKnown, languages, skillProficiencies;
 	HashMap<String, Integer> skillMap;
+	HashMap<String,Boolean> featsMap;
 	ArrayList<Item> inventory;
 		
 	public Hero(){
@@ -21,13 +21,24 @@ public class Hero extends EncounterActor {
 		switch (race){
 		case "hillDwarf": con += 2; wis++; hp++; hpGainedPerLevel++;
 			break;
-		case "mtnDwarf": con += 2; str += 2; proficiencies.add("light armor"); proficiencies.add("medium armor");
+			
+		case "mountainDwarf": con += 2; str += 2; proficiencies.add("Light Armor"); proficiencies.add("Medium Armor");
 			break;
-		case "highElf": dex += 2; intel++; 
+			
+		case "highElf": dex += 2; intel++; featsMap.put("Darkvision", true); 
+			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
 			break;
-		case "darkElf": dex += 2; cha++;
+			
+		case "darkElf": dex += 2; cha++; featsMap.put("Darkvision", true); featsMap.put("Superior Darkvision", true); 
+			featsMap.put("Sunlight Sensitivity", true); featsMap.put("Drow Magic", true); cantripsKnown.add("Dancing Lights");
+			proficiencies.add("Rapier"); proficiencies.add("Shortsword"); proficiencies.add("Hand Crossbow");
 			break;
-		case "woodElf": dex += 2; wis++;
+			
+		case "woodElf": dex += 2; wis++; featsMap.put("Darkvision", true); 
+			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
+			break;
+		case "tiefling": cha += 2; intel++; featsMap.put("Darkvision", true); featsMap.put("Hellish Resistance", true); 
+			featsMap.put("Infernal Legacy", true); cantripsKnown.add("Thaumaturgy");
 			break;
 		}
 	}
@@ -37,9 +48,6 @@ public class Hero extends EncounterActor {
 		nextLvlXP = Constants.XP_LEVELS[level];
 		if ((level - 1) % 4 == 0){
 			proficiencyBonus++;
-		}
-		if(level % 4 == 0){
-			
 		}
 		calculateSkillBon();
 	}
