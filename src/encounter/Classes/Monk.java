@@ -10,4 +10,5 @@ public class Monk extends Hero {
 		currentKi = 0;
 		maxHP = 8 + conBon;
 	}
+	
 }
