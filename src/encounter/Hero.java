@@ -5,7 +5,7 @@ import java.util.*;
 public class Hero extends EncounterActor {
 	public int level, xp, proficiencyBonus, nextLvlXP, gold, hpGainedPerLevel;
 	public boolean inspiration, spellcaster;
-	String name, race;
+	public String name, race, className;
 	ArrayList<Spell> spellsKnown, spellsPrepared;
 	ArrayList<String> proficiencies, cantripsKnown, languages, skillProficiencies;
 	HashMap<String, Integer> skillMap;
@@ -17,6 +17,11 @@ public class Hero extends EncounterActor {
 		level = 1;
 		xp = 0;
 		proficiencyBonus = 2;
+		skillProficiencies = new ArrayList<String>();
+		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
+		skillMap = new HashMap<String, Integer>();
+		race = "human";
+		calculateStatBon();
 		calculateSkillBon();
 		switch (race){
 		case "hillDwarf": con += 2; wis++; hp++; hpGainedPerLevel++;
@@ -37,9 +42,14 @@ public class Hero extends EncounterActor {
 		case "woodElf": dex += 2; wis++; featsMap.put("Darkvision", true); 
 			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
 			break;
+		
+		case "human": str++; con++; dex++; wis++; intel++; cha++; moveSpeed = 30;
+			break;
+			
 		case "tiefling": cha += 2; intel++; featsMap.put("Darkvision", true); featsMap.put("Hellish Resistance", true); 
 			featsMap.put("Infernal Legacy", true); cantripsKnown.add("Thaumaturgy");
 			break;
+			
 		}
 	}
 	
