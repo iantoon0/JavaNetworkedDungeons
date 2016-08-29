@@ -15,9 +15,5 @@ public class JavaNetworkedDungeons {
 		JavaNetworkedDungeonsListener jndl = new JavaNetworkedDungeonsListener(c);
 		jndl.run();
 		
-		//hwah
-		//hwah?
-		//hwaah!!
-		//HWAAAAAAH?!?!?!?!?
 	}
 }
