@@ -36,12 +36,15 @@ public class Hero extends EncounterActor {
 			
 		case "highElf": 
 			dex += 2; intel++; 
+			
 			featsMap.put("Darkvision", true); 
+			
 			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
 			break;
 			
 		case "darkElf": 
 			dex += 2; cha++; 
+			
 			featsMap.put("Darkvision", true); featsMap.put("Superior Darkvision", true); 
 			featsMap.put("Sunlight Sensitivity", true); featsMap.put("Drow Magic", true); cantripsKnown.add("Dancing Lights");
 			
@@ -51,17 +54,91 @@ public class Hero extends EncounterActor {
 			
 		case "woodElf": 
 			dex += 2; wis++; 
+			
 			featsMap.put("Darkvision", true); 
+			
 			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
 			break;
 		
 		case "human": 
 			str++; con++; dex++; wis++; intel++; cha++; 
+			
 			moveSpeed = 30;
+			
 			break;
 			
-		case "tiefling": cha += 2; intel++; featsMap.put("Darkvision", true); featsMap.put("Hellish Resistance", true); 
-			featsMap.put("Infernal Legacy", true); cantripsKnown.add("Thaumaturgy");
+		case "tiefling": 
+			cha += 2; intel++; 
+			
+			featsMap.put("Darkvision", true); featsMap.put("Hellish Resistance", true); featsMap.put("Infernal Legacy", true); 
+			cantripsKnown.add("Thaumaturgy");
+			
+			break;
+			
+		}
+	}
+	
+	public Hero(String r){
+		nextLvlXP = 300;
+		level = 1;
+		xp = 0;
+		proficiencyBonus = 2;
+		skillProficiencies = new ArrayList<String>();
+		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
+		skillMap = new HashMap<String, Integer>();
+		race = r;
+		calculateStatBon();
+		calculateSkillBon();
+		switch (race){
+		case "hillDwarf": 
+			con += 2; wis++; 
+			hp++; hpGainedPerLevel++;
+			break;
+			
+		case "mountainDwarf": 
+			con += 2; str += 2; 
+			proficiencies.add("Light Armor"); proficiencies.add("Medium Armor");
+			break;
+			
+		case "highElf": 
+			dex += 2; intel++; 
+			
+			featsMap.put("Darkvision", true); 
+			
+			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
+			break;
+			
+		case "darkElf": 
+			dex += 2; cha++; 
+			
+			featsMap.put("Darkvision", true); featsMap.put("Superior Darkvision", true); 
+			featsMap.put("Sunlight Sensitivity", true); featsMap.put("Drow Magic", true); cantripsKnown.add("Dancing Lights");
+			
+			proficiencies.add("Rapier"); proficiencies.add("Shortsword"); proficiencies.add("Hand Crossbow");
+			
+			break;
+			
+		case "woodElf": 
+			dex += 2; wis++; 
+			
+			featsMap.put("Darkvision", true); 
+			
+			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
+			break;
+		
+		case "human": 
+			str++; con++; dex++; wis++; intel++; cha++; 
+			
+			moveSpeed = 30;
+			
+			break;
+			
+		case "tiefling": 
+			cha += 2; intel++; 
+			
+			featsMap.put("Darkvision", true); featsMap.put("Hellish Resistance", true); featsMap.put("Infernal Legacy", true); 
+			cantripsKnown.add("Thaumaturgy");
+			
 			break;
 			
 		}
