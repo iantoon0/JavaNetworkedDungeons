@@ -4,7 +4,8 @@ import java.math.*;
 public class EncounterActor {
 	public int str, con, dex, intel, wis, cha, 
 	strBon, conBon, dexBon, intelBon, wisBon, chaBon,
-	hp, tempHP, maxHP, InitiativeBon, ac, moveSpeed;
+	hp, tempHP, maxHP, initiativeBon, initiative, ac, moveSpeed;
+	ClientThread controller;
 	void calculateStatBon(){
 		this.strBon = Math.floorDiv(str-10, 2);
 		this.conBon = Math.floorDiv(con-10, 2);

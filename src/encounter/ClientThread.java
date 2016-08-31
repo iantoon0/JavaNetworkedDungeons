@@ -24,7 +24,7 @@ public class ClientThread extends Thread {
 			        jndp.processInput(inputLine);
 				}
 				jndp.outputCampaign(c);
-				sleep(1);
+				sleep(250);
 			}
 		}catch (IOException e) {
 			// TODO Auto-generated catch block

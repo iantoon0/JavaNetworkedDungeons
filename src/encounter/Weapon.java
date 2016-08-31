@@ -1,8 +1,8 @@
 package encounter;
 
 public class Weapon extends Item {
-	int bonusDam, bonusToHit;
+	public int bonusDam, bonusToHit;
 	boolean magical;
 	String proficiencyName;
-	int[] hitDice;
+	public int[] hitDice;
 }

@@ -14,6 +14,5 @@ public class JavaNetworkedDungeons {
 		Campaign c = new Campaign();
 		JavaNetworkedDungeonsListener jndl = new JavaNetworkedDungeonsListener(c);
 		jndl.run();
-		
 	}
 }

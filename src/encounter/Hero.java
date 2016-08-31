@@ -159,7 +159,14 @@ public class Hero extends EncounterActor {
 			levelUp();
 		}
 	}
-	
+	public void recieveMeleeAttack(Weapon w){
+		if (w.bonusToHit + (int) Math.ceil(20 * Math.random()) >= ac){
+			for(int i : w.hitDice){
+				hp -= Math.ceil(i * Math.random());	
+			}
+			hp -= w.bonusDam;
+		}
+	}
 	public void calculateSkillBon(){
 		skillMap.put("acrobatics", dexBon);
 		skillMap.put("animalHandling", wisBon);
