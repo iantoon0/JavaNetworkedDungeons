@@ -17,10 +17,11 @@ public class JavaNetworkedDungeonsListener implements Runnable {
 		ServerSocket serversocket;
 		while(true){
 			try {
-				int portNumber = 555;
+				int portNumber = 554;
 				serversocket = new ServerSocket(portNumber);
 				System.out.println(serversocket.getLocalPort());
 				ClientThread clientThread = new ClientThread(serversocket.accept(), c);
+				serversocket.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

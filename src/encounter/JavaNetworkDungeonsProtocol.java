@@ -22,11 +22,9 @@ public class JavaNetworkDungeonsProtocol {
 		if(input.contains("party")){
 			gson.fromJson(input, Campaign.class);
 		}
-		else if(input.contains("Cmd:"))
-			switch (input){
-				case "Cmd: Atk": 
-					break;
-			}
+		else if(input.contains("encounterActors")){
+			
+		}
 	}
 	public void outputCampaign(Campaign c){
 		output.write(gson.toJson(c));
