@@ -8,7 +8,13 @@ public class Monk extends Hero {
 		spellcaster = false;
 		maxKi = 0;
 		currentKi = 0;
-		maxHP = 8 + conBon;
+		maxHP = 8 + conMod;
 	}
-	
+	public Monk(String r){
+		super(r);
+		spellcaster = false;
+		maxKi = 0;
+		currentKi = 0;
+		maxHP = 8 + conMod;
+	}
 }

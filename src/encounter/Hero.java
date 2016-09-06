@@ -8,8 +8,10 @@ public class Hero extends EncounterActor {
 	public String name, race, className;
 	ArrayList<Spell> spellsKnown, spellsPrepared;
 	ArrayList<String> proficiencies, cantripsKnown, languages, skillProficiencies;
+	
 	HashMap<String, Integer> skillMap;
-	HashMap<String,Boolean> featsMap;
+	HashMap<String, Boolean> featsMap;
+	
 	ArrayList<Item> inventory;
 		
 	public Hero(){
@@ -17,12 +19,20 @@ public class Hero extends EncounterActor {
 		level = 1;
 		xp = 0;
 		proficiencyBonus = 2;
+		proficiencies = new ArrayList<String>();
 		skillProficiencies = new ArrayList<String>();
+		cantripsKnown = new ArrayList<String>();
+		languages = new ArrayList<String>();
+		
 		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
+		
 		skillMap = new HashMap<String, Integer>();
+		featsMap = new HashMap<String, Boolean>();
+		
 		race = "human";
-		calculateStatBon();
-		calculateSkillBon();
+		calculateStatMod();
+		calculateSkillMod();
+		
 		switch (race){
 		case "hillDwarf": 
 			con += 2; wis++; 
@@ -53,9 +63,9 @@ public class Hero extends EncounterActor {
 			break;
 			
 		case "woodElf": 
-			dex += 2; wis++; 
+			dex += 2; wis++;
 			
-			featsMap.put("Darkvision", true); 
+			featsMap.put("Darkvision", true);
 			
 			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
 			break;
@@ -83,12 +93,19 @@ public class Hero extends EncounterActor {
 		level = 1;
 		xp = 0;
 		proficiencyBonus = 2;
-		skillProficiencies = new ArrayList<String>();
-		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
-		skillMap = new HashMap<String, Integer>();
 		race = r;
-		calculateStatBon();
-		calculateSkillBon();
+		proficiencies = new ArrayList<String>();
+		skillProficiencies = new ArrayList<String>();
+		cantripsKnown = new ArrayList<String>();
+		languages = new ArrayList<String>();
+		
+		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
+		
+		skillMap = new HashMap<String, Integer>();
+		featsMap = new HashMap<String, Boolean>();
+		
+		calculateStatMod();
+		calculateSkillMod();
 		switch (race){
 		case "hillDwarf": 
 			con += 2; wis++; 
@@ -143,6 +160,7 @@ public class Hero extends EncounterActor {
 			
 		}
 	}
+
 	
 	public void levelUp(){
 		level++;
@@ -150,7 +168,7 @@ public class Hero extends EncounterActor {
 		if ((level - 1) % 4 == 0){
 			proficiencyBonus++;
 		}
-		calculateSkillBon();
+		calculateSkillMod();
 	}
 	
 	public void addXP(int xp){
@@ -159,36 +177,28 @@ public class Hero extends EncounterActor {
 			levelUp();
 		}
 	}
-	public void recieveMeleeAttack(Weapon w){
-		if (w.bonusToHit + (int) Math.ceil(20 * Math.random()) >= ac){
-			for(int i : w.hitDice){
-				hp -= Math.ceil(i * Math.random());	
-			}
-			hp -= w.bonusDam;
-		}
-	}
-	public void calculateSkillBon(){
-		skillMap.put("acrobatics", dexBon);
-		skillMap.put("animalHandling", wisBon);
-		skillMap.put("arcana", intelBon);
-		skillMap.put("athletics", strBon);
-		skillMap.put("deception", chaBon);
-		skillMap.put("history", intelBon);
-		skillMap.put("insight", wisBon);
-		skillMap.put("intimidation", chaBon);
-		skillMap.put("investigation", intelBon);
-		skillMap.put("medicine", wisBon);
-		skillMap.put("nature", intelBon);
-		skillMap.put("perception", wisBon);
-		skillMap.put("performance", chaBon);
-		skillMap.put("persuasion", chaBon);
-		skillMap.put("religion", intelBon);
-		skillMap.put("sleightOfHand", dexBon);
-		skillMap.put("stealth", dexBon);
-		skillMap.put("survival", dexBon);
+	
+	public void calculateSkillMod(){
+		skillMap.put("acrobatics", dexMod);
+		skillMap.put("animalHandling", wisMod);
+		skillMap.put("arcana", intelMod);
+		skillMap.put("athletics", strMod);
+		skillMap.put("deception", chaMod);
+		skillMap.put("history", intelMod);
+		skillMap.put("insight", wisMod);
+		skillMap.put("intimidation", chaMod);
+		skillMap.put("investigation", intelMod);
+		skillMap.put("medicine", wisMod);
+		skillMap.put("nature", intelMod);
+		skillMap.put("perception", wisMod);
+		skillMap.put("performance", chaMod);
+		skillMap.put("persuasion", chaMod);
+		skillMap.put("religion", intelMod);
+		skillMap.put("sleightOfHand", dexMod);
+		skillMap.put("stealth", dexMod);
+		skillMap.put("survival", dexMod);
 		for (String s : skillProficiencies){
 			skillMap.put(s, skillMap.get(s) + proficiencyBonus);
 		}
-		
 	}
 }
