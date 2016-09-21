@@ -17,11 +17,11 @@ public class ClientThread extends Thread {
 			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			
-			JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(out);
+			JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(out,c);
 			String inputLine;
 			while (true){
 				while ((inputLine = in.readLine()) != null) {
-			        jndp.processInput(inputLine);
+			        jndp.processInput(inputLine, in);
 				}
 				jndp.outputCampaign(c);
 				sleep(250);

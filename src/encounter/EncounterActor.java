@@ -4,7 +4,7 @@ import java.math.*;
 public class EncounterActor {
 	public int str, con, dex, intel, wis, cha, 
 	strMod, conMod, dexMod, intelMod, wisMod, chaMod,
-	hp, tempHP, maxHP, initiativeMod, initiative, ac, moveSpeed;
+	hp, tempHP, maxHP, initiativeMod, initiative, ac, moveSpeed, passivePerception;
 	//ClientThread controller;
 	void calculateStatMod(){
 		this.strMod = Math.floorDiv(str-10, 2);

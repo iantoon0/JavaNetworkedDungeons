@@ -8,9 +8,9 @@ public class Hero extends EncounterActor {
 	public String name, race, className;
 	ArrayList<Spell> spellsKnown, spellsPrepared;
 	ArrayList<String> proficiencies, cantripsKnown, languages, skillProficiencies;
-	
 	HashMap<String, Integer> skillMap;
 	HashMap<String, Boolean> featsMap;
+	HashMap<String, String> backgroundAndTraitsMap;
 	
 	ArrayList<Item> inventory;
 		
@@ -23,11 +23,12 @@ public class Hero extends EncounterActor {
 		skillProficiencies = new ArrayList<String>();
 		cantripsKnown = new ArrayList<String>();
 		languages = new ArrayList<String>();
-		
+		DiceRoller dr = new DiceRoller();
 		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
 		
 		skillMap = new HashMap<String, Integer>();
 		featsMap = new HashMap<String, Boolean>();
+		backgroundAndTraitsMap = new HashMap<String, String>();
 		
 		race = "human";
 		calculateStatMod();
@@ -76,6 +77,9 @@ public class Hero extends EncounterActor {
 			moveSpeed = 30;
 			
 			break;
+		
+		case "dragonbornBlack":
+			
 			
 		case "tiefling": 
 			cha += 2; intel++; 
@@ -200,5 +204,6 @@ public class Hero extends EncounterActor {
 		for (String s : skillProficiencies){
 			skillMap.put(s, skillMap.get(s) + proficiencyBonus);
 		}
+		passivePerception = skillMap.get("perception") + 10;
 	}
 }

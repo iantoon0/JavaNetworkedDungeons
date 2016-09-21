@@ -12,15 +12,21 @@ public class JavaNetworkedDungeons {
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
 		Campaign c = new Campaign();
-		System.out.println("Finished");
-		JavaNetworkedDungeonsListener jndl = new JavaNetworkedDungeonsListener(c);
+		HashMap<EncounterActor, Socket> actorSocketMap = new HashMap<EncounterActor, Socket>();
+		JavaNetworkedDungeonsListener jndl = new JavaNetworkedDungeonsListener(actorSocketMap, c);
 		jndl.start();
-		System.out.println("Finished2");
 		PrintWriter pw = new PrintWriter(System.out);
-		JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(pw);
+		JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(pw,c);
 		Hero h = new Monk("tiefling");
+		h.featsMap.put("truesight30",true);
 		c.party.add(h);
 		Gson gson = new Gson();
 		System.out.println(gson.toJson(c));
+		jndp.outputCampaign(c);
+		Dungeon d = new Dungeon(15);
+		d.dungeonMap.get(8).get(8).encounterActor = h;
+		d.print();
+		d.updateVisibleTiles();
+		d.print();
 	}
 }
