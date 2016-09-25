@@ -10,7 +10,7 @@ public class Dungeon {
 		for(int r = 0; r < s; r++){
 			dungeonMap.add(new ArrayList<DungeonTile>());
 			for(int c = 0; c < s; c++){
-				dungeonMap.get(r).add(new DungeonTile(this));
+				dungeonMap.get(r).add(new DungeonTile(this, new Point(r,c)));
 			}
 		}
 	}
@@ -18,7 +18,7 @@ public class Dungeon {
 		for(ArrayList<DungeonTile> dRow : dungeonMap){
 			for (DungeonTile dTile : dRow){
 				if (dTile.encounterActor != null){
-					dTile.RecursiveVisionMethod((byte) 0, 120, (Hero) dTile.encounterActor, this); 
+					dTile.RecursiveVisionMethod(null, 120, (Hero) dTile.encounterActor, this); 
 				}
 			}
 		}

@@ -25,6 +25,7 @@ public class JavaNetworkedDungeons {
 		jndp.outputCampaign(c);
 		Dungeon d = new Dungeon(15);
 		d.dungeonMap.get(8).get(8).encounterActor = h;
+		d.dungeonMap.get(9).get(10).wall = true;
 		d.print();
 		d.updateVisibleTiles();
 		d.print();
