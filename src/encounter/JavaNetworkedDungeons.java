@@ -23,9 +23,8 @@ public class JavaNetworkedDungeons {
 		Gson gson = new Gson();
 		System.out.println(gson.toJson(c));
 		jndp.outputCampaign(c);
-		Dungeon d = new Dungeon(15);
+		Dungeon d = new Dungeon(40);
 		d.dungeonMap.get(8).get(8).encounterActor = h;
-		d.dungeonMap.get(9).get(10).wall = true;
 		d.print();
 		d.updateVisibleTiles();
 		d.print();
