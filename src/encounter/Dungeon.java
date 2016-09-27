@@ -18,7 +18,7 @@ public class Dungeon {
 		for(ArrayList<DungeonTile> dRow : dungeonMap){
 			for (DungeonTile dTile : dRow){
 				if (dTile.encounterActor != null){
-					dTile.RecursiveVisionMethod(null, 120, (Hero) dTile.encounterActor, this, null, false); 
+					dTile.RecursiveVisionMethod(null, 120, (Hero) dTile.encounterActor, this); 
 				}
 			}
 		}
