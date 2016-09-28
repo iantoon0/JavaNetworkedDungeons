@@ -18,7 +18,23 @@ public class Dungeon {
 		for(ArrayList<DungeonTile> dRow : dungeonMap){
 			for (DungeonTile dTile : dRow){
 				if (dTile.encounterActor != null){
-					dTile.RecursiveVisionMethod(null, 120, (Hero) dTile.encounterActor, this); 
+					dTile.RecursiveVisionMethod(null, 120, (Hero) dTile.encounterActor, this, null, false); 
+				}
+			}
+		}
+	}
+	public void determineLightLevels() throws InterruptedException{
+		for(ArrayList<DungeonTile> dRow : dungeonMap){
+			for (DungeonTile dTile : dRow){
+				if (dTile.lightSources.size() != 0){
+					for(int i = 0; i < dTile.lightSources.size(); i++){
+						dTile.RecursiveLightMethod(null, dTile.lightSources.get(i).strength, dTile.lightSources.get(i).strength, dTile.lightSources.get(i), this, null, false); 
+						for(ArrayList<DungeonTile> dRow2 : dungeonMap){
+							for (DungeonTile dTile2 : dRow){
+								dTile2.lightLevelCalculated = false;
+							}
+						}
+					}
 				}
 			}
 		}

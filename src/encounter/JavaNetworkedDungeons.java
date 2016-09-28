@@ -23,11 +23,19 @@ public class JavaNetworkedDungeons {
 		Gson gson = new Gson();
 		System.out.println(gson.toJson(c));
 		jndp.outputCampaign(c);
-		Dungeon d = new Dungeon(15);
+		Dungeon d = new Dungeon(40);
 		d.dungeonMap.get(8).get(8).encounterActor = h;
+		d.dungeonMap.get(9).get(19).lightSources.add(new LightSource(120,0));
 		d.dungeonMap.get(9).get(10).wall = true;
+		try {
+			d.determineLightLevels();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		d.print();
 		d.updateVisibleTiles();
+		System.out.println("");
 		d.print();
 	}
 }
