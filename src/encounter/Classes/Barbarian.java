@@ -4,15 +4,15 @@ import encounter.Hero;
 
 public class Barbarian extends Hero {
 	public Barbarian(){
-		className = "Barbarian";
-		spellcaster = false;
+		sClassName = "Barbarian";
+		bSpellcaster = false;
 	}
 	public Barbarian(String r){
 		super(r);
-		className = "Barbarian";
-		spellcaster = false;
+		sClassName = "Barbarian";
+		bSpellcaster = false;
 	}
-	public void levelUp(){
-		super.levelUp();
+	public void iLevelUp(){
+		super.iLevelUp();
 	}
 }

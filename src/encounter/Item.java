@@ -1,7 +1,7 @@
 package encounter;
 
 public class Item {
-	int Weight, Value;
-	String name;
-	boolean hidden;
+	int iWeight, iValue;
+	String sName;
+	boolean bHidden;
 }

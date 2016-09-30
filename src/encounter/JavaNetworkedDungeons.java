@@ -18,15 +18,16 @@ public class JavaNetworkedDungeons {
 		PrintWriter pw = new PrintWriter(System.out);
 		JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(pw,c);
 		Hero h = new Monk("tiefling");
-		h.featsMap.put("truesight30",true);
-		c.party.add(h);
+		c.listParty.add(h);
 		Gson gson = new Gson();
 		System.out.println(gson.toJson(c));
 		jndp.outputCampaign(c);
 		Dungeon d = new Dungeon(40);
 		d.dungeonMap.get(8).get(8).encounterActor = h;
-		d.dungeonMap.get(9).get(19).lightSources.add(new LightSource(120,0));
-		d.dungeonMap.get(9).get(10).wall = true;
+		d.dungeonMap.get(9).get(19).lightSources.add(new LightSource(60,0));
+		d.dungeonMap.get(10).get(18).wall = true;
+		d.dungeonMap.get(11).get(18).wall = true;
+		d.dungeonMap.get(12).get(18).wall = true;
 		try {
 			d.determineLightLevels();
 		} catch (InterruptedException e) {

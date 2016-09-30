@@ -1,8 +1,10 @@
 package encounter;
 
+import java.util.ArrayList;
+
 public class Weapon extends Item {
-	public int bonusDam, bonusToHit;
-	boolean magical;
-	String proficiencyName;
+	public int iBonusDam, iBonusToHit;
+	boolean bMagical;
+	ArrayList<String> sProficiencyNames;
 	public int[] hitDice;
 }

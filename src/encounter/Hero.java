@@ -3,78 +3,78 @@ package encounter;
 import java.util.*;
 
 public class Hero extends EncounterActor {
-	public int level, xp, proficiencyBonus, nextLvlXP, gold, hpGainedPerLevel;
-	public boolean inspiration, spellcaster;
-	public String name, race, className;
-	ArrayList<Spell> spellsKnown, spellsPrepared;
-	ArrayList<String> proficiencies, cantripsKnown, languages, skillProficiencies;
-	HashMap<String, Integer> skillMap;
-	HashMap<String, Boolean> featsMap;
-	HashMap<String, String> backgroundAndTraitsMap;
+	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel;
+	public boolean bInspiration, bSpellcaster;
+	public String sName, sRace, sClassName;
+	ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
+	ArrayList<String> listProficiencies, listCantripsKnown, listLanguages, listSkillProficiencies;
+	HashMap<String, Integer> dictSkills;
+	HashMap<String, Boolean> dictFeats;
+	HashMap<String, String> dictBackgroundTraits;
 	
 	ArrayList<Item> inventory;
 		
 	public Hero(){
-		nextLvlXP = 300;
-		level = 1;
-		xp = 0;
-		proficiencyBonus = 2;
-		proficiencies = new ArrayList<String>();
-		skillProficiencies = new ArrayList<String>();
-		cantripsKnown = new ArrayList<String>();
-		languages = new ArrayList<String>();
+		iNextLvlXP = 300;
+		iLevel = 1;
+		iXP = 0;
+		iProficiencyBonus = 2;
+		listProficiencies = new ArrayList<String>();
+		listSkillProficiencies = new ArrayList<String>();
+		listCantripsKnown = new ArrayList<String>();
+		listLanguages = new ArrayList<String>();
 		DiceRoller dr = new DiceRoller();
-		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
+		iStr = 10; iCon = 10; iDex = 10; iWis = 10; iInt = 10; iCha = 10;
 		
-		skillMap = new HashMap<String, Integer>();
-		featsMap = new HashMap<String, Boolean>();
-		backgroundAndTraitsMap = new HashMap<String, String>();
+		dictSkills = new HashMap<String, Integer>();
+		dictFeats = new HashMap<String, Boolean>();
+		dictBackgroundTraits = new HashMap<String, String>();
 		
-		race = "human";
+		sRace = "human";
 		calculateStatMod();
 		calculateSkillMod();
 		
-		switch (race){
+		switch (sRace){
 		case "hillDwarf": 
-			con += 2; wis++; 
-			hp++; hpGainedPerLevel++;
+			iCon += 2; iWis++; 
+			iHP++; iHPGainedPerLevel++;
 			break;
 			
 		case "mountainDwarf": 
-			con += 2; str += 2; 
-			proficiencies.add("Light Armor"); proficiencies.add("Medium Armor");
+			iCon += 2; iStr += 2; 
+			listProficiencies.add("Light Armor"); listProficiencies.add("Medium Armor");
 			break;
 			
 		case "highElf": 
-			dex += 2; intel++; 
+			iDex += 2; iInt++; 
 			
-			featsMap.put("Darkvision", true); 
+			dictFeats.put("Darkvision", true); 
 			
-			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
+			listProficiencies.add("Longsword"); listProficiencies.add("Shortsword"); listProficiencies.add("Longbow"); listProficiencies.add("Shortbow");
 			break;
 			
 		case "darkElf": 
-			dex += 2; cha++; 
+			iDex += 2; iCha++; 
 			
-			featsMap.put("Darkvision", true); featsMap.put("Superior Darkvision", true); 
-			featsMap.put("Sunlight Sensitivity", true); featsMap.put("Drow Magic", true); cantripsKnown.add("Dancing Lights");
+			dictFeats.put("Darkvision", true); dictFeats.put("Superior Darkvision", true); 
+			dictFeats.put("Sunlight Sensitivity", true); dictFeats.put("Drow Magic", true); listCantripsKnown.add("Dancing Lights");
 			
-			proficiencies.add("Rapier"); proficiencies.add("Shortsword"); proficiencies.add("Hand Crossbow");
+			listProficiencies.add("Rapier"); listProficiencies.add("Shortsword"); listProficiencies.add("Hand Crossbow");
 			
 			break;
 			
 		case "woodElf": 
-			dex += 2; wis++;
+			iDex += 2; iWis++;
 			
-			featsMap.put("Darkvision", true);
+			dictFeats.put("Darkvision", true);
 			
-			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
+			listProficiencies.add("Longsword"); listProficiencies.add("Shortsword"); listProficiencies.add("Longbow"); listProficiencies.add("Shortbow");
 			break;
 		
 		case "human": 
-			str++; con++; dex++; wis++; intel++; cha++; 
+			iStr++; iCon++; iDex++; iWis++; iInt++; iCha++; 
 			
-			moveSpeed = 30;
+			iMoveSpeed = 30;
 			
 			break;
 		
@@ -82,10 +82,10 @@ public class Hero extends EncounterActor {
 			
 			
 		case "tiefling": 
-			cha += 2; intel++; 
+			iCha += 2; iInt++; 
 			
-			featsMap.put("Darkvision", true); featsMap.put("Hellish Resistance", true); featsMap.put("Infernal Legacy", true); 
-			cantripsKnown.add("Thaumaturgy");
+			dictFeats.put("Darkvision", true); dictFeats.put("Hellish Resistance", true); dictFeats.put("Infernal Legacy", true); 
+			listCantripsKnown.add("Thaumaturgy");
 			
 			break;
 			
@@ -93,72 +93,72 @@ public class Hero extends EncounterActor {
 	}
 	
 	public Hero(String r){
-		nextLvlXP = 300;
-		level = 1;
-		xp = 0;
-		proficiencyBonus = 2;
-		race = r;
-		proficiencies = new ArrayList<String>();
-		skillProficiencies = new ArrayList<String>();
-		cantripsKnown = new ArrayList<String>();
-		languages = new ArrayList<String>();
+		iNextLvlXP = 300;
+		iLevel = 1;
+		iXP = 0;
+		iProficiencyBonus = 2;
+		sRace = r;
+		listProficiencies = new ArrayList<String>();
+		listSkillProficiencies = new ArrayList<String>();
+		listCantripsKnown = new ArrayList<String>();
+		listLanguages = new ArrayList<String>();
 		
-		str = 10; con = 10; dex = 10; wis = 10; intel = 10; cha = 10;
+		iStr = 10; iCon = 10; iDex = 10; iWis = 10; iInt = 10; iCha = 10;
 		
-		skillMap = new HashMap<String, Integer>();
-		featsMap = new HashMap<String, Boolean>();
+		dictSkills = new HashMap<String, Integer>();
+		dictFeats = new HashMap<String, Boolean>();
 		
 		calculateStatMod();
 		calculateSkillMod();
-		switch (race){
+		switch (sRace){
 		case "hillDwarf": 
-			con += 2; wis++; 
-			hp++; hpGainedPerLevel++;
+			iCon += 2; iWis++; 
+			iHP++; iHPGainedPerLevel++;
 			break;
 			
 		case "mountainDwarf": 
-			con += 2; str += 2; 
-			proficiencies.add("Light Armor"); proficiencies.add("Medium Armor");
+			iCon += 2; iStr += 2; 
+			listProficiencies.add("Light Armor"); listProficiencies.add("Medium Armor");
 			break;
 			
 		case "highElf": 
-			dex += 2; intel++; 
+			iDex += 2; iInt++; 
 			
-			featsMap.put("Darkvision", true); 
+			dictFeats.put("Darkvision", true); 
 			
-			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
+			listProficiencies.add("Longsword"); listProficiencies.add("Shortsword"); listProficiencies.add("Longbow"); listProficiencies.add("Shortbow");
 			break;
 			
 		case "darkElf": 
-			dex += 2; cha++; 
+			iDex += 2; iCha++; 
 			
-			featsMap.put("Darkvision", true); featsMap.put("Superior Darkvision", true); 
-			featsMap.put("Sunlight Sensitivity", true); featsMap.put("Drow Magic", true); cantripsKnown.add("Dancing Lights");
+			dictFeats.put("Darkvision", true); dictFeats.put("Superior Darkvision", true); 
+			dictFeats.put("Sunlight Sensitivity", true); dictFeats.put("Drow Magic", true); listCantripsKnown.add("Dancing Lights");
 			
-			proficiencies.add("Rapier"); proficiencies.add("Shortsword"); proficiencies.add("Hand Crossbow");
+			listProficiencies.add("Rapier"); listProficiencies.add("Shortsword"); listProficiencies.add("Hand Crossbow");
 			
 			break;
 			
 		case "woodElf": 
-			dex += 2; wis++; 
+			iDex += 2; iWis++; 
 			
-			featsMap.put("Darkvision", true); 
+			dictFeats.put("Darkvision", true); 
 			
-			proficiencies.add("Longsword"); proficiencies.add("Shortsword"); proficiencies.add("Longbow"); proficiencies.add("Shortbow");
+			listProficiencies.add("Longsword"); listProficiencies.add("Shortsword"); listProficiencies.add("Longbow"); listProficiencies.add("Shortbow");
 			break;
 		
 		case "human": 
-			str++; con++; dex++; wis++; intel++; cha++; 
+			iStr++; iCon++; iDex++; iWis++; iInt++; iCha++; 
 			
-			moveSpeed = 30;
+			iMoveSpeed = 30;
 			
 			break;
 			
 		case "tiefling": 
-			cha += 2; intel++; 
+			iCha += 2; iInt++; 
 			
-			featsMap.put("Darkvision", true); featsMap.put("Hellish Resistance", true); featsMap.put("Infernal Legacy", true); 
-			cantripsKnown.add("Thaumaturgy");
+			dictFeats.put("Darkvision", true); dictFeats.put("Hellish Resistance", true); dictFeats.put("Infernal Legacy", true); 
+			listCantripsKnown.add("Thaumaturgy");
 			
 			break;
 			
@@ -166,44 +166,44 @@ public class Hero extends EncounterActor {
 	}
 
 	
-	public void levelUp(){
-		level++;
-		nextLvlXP = Constants.XP_LEVELS[level];
-		if ((level - 1) % 4 == 0){
-			proficiencyBonus++;
+	public void iLevelUp(){
+		iLevel++;
+		iNextLvlXP = Constants.XP_LEVELS[iLevel];
+		if ((iLevel - 1) % 4 == 0){
+			iProficiencyBonus++;
 		}
 		calculateSkillMod();
 	}
 	
-	public void addXP(int xp){
-		this.xp += xp;
-		if (this.xp >= nextLvlXP){
-			levelUp();
+	public void addXP(int iXP){
+		this.iXP += iXP;
+		if (this.iXP >= iNextLvlXP){
+			iLevelUp();
 		}
 	}
 	
 	public void calculateSkillMod(){
-		skillMap.put("acrobatics", dexMod);
-		skillMap.put("animalHandling", wisMod);
-		skillMap.put("arcana", intelMod);
-		skillMap.put("athletics", strMod);
-		skillMap.put("deception", chaMod);
-		skillMap.put("history", intelMod);
-		skillMap.put("insight", wisMod);
-		skillMap.put("intimidation", chaMod);
-		skillMap.put("investigation", intelMod);
-		skillMap.put("medicine", wisMod);
-		skillMap.put("nature", intelMod);
-		skillMap.put("perception", wisMod);
-		skillMap.put("performance", chaMod);
-		skillMap.put("persuasion", chaMod);
-		skillMap.put("religion", intelMod);
-		skillMap.put("sleightOfHand", dexMod);
-		skillMap.put("stealth", dexMod);
-		skillMap.put("survival", dexMod);
-		for (String s : skillProficiencies){
-			skillMap.put(s, skillMap.get(s) + proficiencyBonus);
+		dictSkills.put("acrobatics", iDexMod);
+		dictSkills.put("animalHandling", iWisMod);
+		dictSkills.put("arcana", iIntMod);
+		dictSkills.put("athletics", iStrMod);
+		dictSkills.put("deception", iChaMod);
+		dictSkills.put("history", iIntMod);
+		dictSkills.put("insight", iWisMod);
+		dictSkills.put("intimidation", iChaMod);
+		dictSkills.put("investigation", iIntMod);
+		dictSkills.put("medicine", iWisMod);
+		dictSkills.put("nature", iIntMod);
+		dictSkills.put("perception", iWisMod);
+		dictSkills.put("performance", iChaMod);
+		dictSkills.put("persuasion", iChaMod);
+		dictSkills.put("religion", iIntMod);
+		dictSkills.put("sleightOfHand", iDexMod);
+		dictSkills.put("stealth", iDexMod);
+		dictSkills.put("survival", iDexMod);
+		for (String s : listSkillProficiencies){
+			dictSkills.put(s, dictSkills.get(s) + iProficiencyBonus);
 		}
-		passivePerception = skillMap.get("perception") + 10;
+		iPassivePerception = dictSkills.get("perception") + 10;
 	}
 }

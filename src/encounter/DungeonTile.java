@@ -26,7 +26,6 @@ public class DungeonTile {
 	}
 	public void RecursiveVisionMethod(LinkedList<Point> nextPoints, int visionLengthLeft, Hero h, Dungeon d, Point prevPoint, boolean diagAdd){
 		visible = true; wasSeen = true;
-		System.out.println("Set Visible: " + loc);
 		int dx = 0;
 		int dy = 1;
 		if(prevPoint != null){
@@ -45,7 +44,7 @@ public class DungeonTile {
 				visionLengthLeft = 0;
 			}
 			else if(lightLevel == 0){
-				if (h.featsMap.containsKey("Truesight30") && visionLengthLeft >= 90){
+				if (h.dictFeats.containsKey("Truesight30") && visionLengthLeft >= 90){
 					visionLengthLeft -= 5;
 					if(dx == dy){
 						if(diagAdd){
@@ -62,7 +61,7 @@ public class DungeonTile {
 				}
 			}
 			else if(lightLevel == 1){
-				if ((h.featsMap.containsKey("Truesight30")  && visionLengthLeft >= 90)){
+				if ((h.dictFeats.containsKey("Truesight30")  && visionLengthLeft >= 90)){
 					visionLengthLeft -= 5;
 					if(dx == dy){
 						if(diagAdd){
@@ -74,7 +73,7 @@ public class DungeonTile {
 						}
 					}
 				}
-				else if(h.featsMap.containsKey("Darkvision120") || h.featsMap.containsKey("Darkvision60") && visionLengthLeft >= 60){
+				else if(h.dictFeats.containsKey("Darkvision120") || h.dictFeats.containsKey("Darkvision60") && visionLengthLeft >= 60){
 					visionLengthLeft -= 10;
 					if(dx == dy){
 						if(diagAdd){
@@ -91,7 +90,7 @@ public class DungeonTile {
 				}
 			}
 			else if(lightLevel == 2){
-				if ((h.featsMap.containsKey("Truesight30")  && visionLengthLeft >= 90) || h.featsMap.containsKey("Darkvision120") || h.featsMap.containsKey("Darkvision60") && visionLengthLeft >= 60){
+				if ((h.dictFeats.containsKey("Truesight30")  && visionLengthLeft >= 90) || h.dictFeats.containsKey("Darkvision120") || h.dictFeats.containsKey("Darkvision60") && visionLengthLeft >= 60){
 					visionLengthLeft -= 5;
 					if(dx == dy){
 						if(diagAdd){
@@ -130,7 +129,6 @@ public class DungeonTile {
 			}
 			if(visionLengthLeft >= 5){
 				//Call RecursiveVisionMethod for surrounding tiles
-				System.out.println(loc);
 				if(nextPoints.size() != 0){
 					Point p = nextPoints.remove();
 					d.dungeonMap.get(p.x).get(p.y).RecursiveVisionMethod(nextPoints, visionLengthLeft, h, d, loc, diagAdd);
@@ -156,13 +154,16 @@ public class DungeonTile {
 			if(!lightLevelCalculated){
 
 				if (lightLevel + Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) < 3){
-					lightLevel = (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) + 1;
+					lightLevel += (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2);
 				}
 				else{
 					lightLevel = 3;
 				}
 			}
-			if(wall){
+			else if(1 + Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) > lightLevel){
+				lightLevel = 1 + (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2);
+			}
+			if(wall || lightLevel == 0){
 				strengthLeft = 0;
 			}
 			else{
@@ -190,7 +191,6 @@ public class DungeonTile {
 	}
 	private LinkedList<Point> getPointQueue(Point start, Point end){
 		LinkedList<Point> pointQueue = new LinkedList<Point>();
-		System.out.println("Generating line from " + start + " to " + end);
 		int w = end.x - start.x ;
 	    int h = end.y - start.y ;
 	    int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
@@ -229,10 +229,10 @@ public class DungeonTile {
 		if (wall){
 			return "W";
 		}
-		if (visible){
-			if(lightSources.size() != 0){
-				return "*";
-			}
+		if(lightSources.size() != 0){
+			return "*";
+		}
+		if(visible){
 			return "1";
 		}
 		else{

@@ -38,7 +38,7 @@ public class JavaNetworkedDungeonsListener extends Thread {
 					actorFromThread = jndp.CreateActorFromJson(new BufferedReader( new InputStreamReader(clientSocket.getInputStream())).readLine());
 					if(actorFromThread.getClass().equals(Hero.class))
 					{
-						c.party.add((Hero) actorFromThread);
+						c.listParty.add((Hero) actorFromThread);
 						b = false;
 					}
 				}

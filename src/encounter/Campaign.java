@@ -3,9 +3,9 @@ package encounter;
 import java.util.*;
 
 public class Campaign {
-	public ArrayList<Hero> party;
-	boolean inEncounter;
+	public ArrayList<Hero> listParty;
+	boolean bInEncounter;
 	public Campaign(){
-		party = new ArrayList<Hero>();
+		listParty = new ArrayList<Hero>();
 	}
 }

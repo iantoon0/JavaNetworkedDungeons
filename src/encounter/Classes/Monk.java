@@ -5,21 +5,21 @@ import encounter.Hero;
 public class Monk extends Hero {
 	int maxKi, currentKi;
 	public Monk(){
-		className = "Monk";
-		spellcaster = false;
+		sClassName = "Monk";
+		bSpellcaster = false;
 		maxKi = 0;
 		currentKi = 0;
-		maxHP = 8 + conMod;
+		iMaxHP = 8 + iConMod;
 	}
 	public Monk(String r){
 		super(r);
-		className = "Monk";
-		spellcaster = false;
+		sClassName = "Monk";
+		bSpellcaster = false;
 		maxKi = 0;
 		currentKi = 0;
-		maxHP = 8 + conMod;
+		iMaxHP = 8 + iConMod;
 	}
-	public void levelUp(){
-		super.levelUp();
+	public void iLevelUp(){
+		super.iLevelUp();
 	}
 }

@@ -28,7 +28,7 @@ public class Dungeon {
 			for (DungeonTile dTile : dRow){
 				if (dTile.lightSources.size() != 0){
 					for(int i = 0; i < dTile.lightSources.size(); i++){
-						dTile.RecursiveLightMethod(null, dTile.lightSources.get(i).strength, dTile.lightSources.get(i).strength, dTile.lightSources.get(i), this, null, false); 
+						dTile.RecursiveLightMethod(null, dTile.lightSources.get(i).iStrength +10 , dTile.lightSources.get(i).iStrength, dTile.lightSources.get(i), this, null, false); 
 						for(ArrayList<DungeonTile> dRow2 : dungeonMap){
 							for (DungeonTile dTile2 : dRow){
 								dTile2.lightLevelCalculated = false;

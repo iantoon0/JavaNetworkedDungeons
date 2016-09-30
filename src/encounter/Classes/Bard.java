@@ -6,6 +6,6 @@ public class Bard extends Hero {
 	
 	
 	public Bard(){
-		className = "Bard";
+		sClassName = "Bard";
 	}
 }
