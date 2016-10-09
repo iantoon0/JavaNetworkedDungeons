@@ -7,11 +7,11 @@ public class Hero extends EncounterActor {
 	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel;
 	public boolean bInspiration, bSpellcaster;
 	public String sName, sRace, sClassName;
-	ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
-	ArrayList<String> listProficiencies, listCantripsKnown, listLanguages, listSkillProficiencies;
-	HashMap<String, Integer> dictSkills;
-	HashMap<String, Boolean> dictFeats;
-	HashMap<String, String> dictBackgroundTraits;
+	public ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
+	public ArrayList<String> listProficiencies, listCantripsKnown, listLanguages, listSkillProficiencies;
+	public HashMap<String, Integer> dictSkills;
+	public HashMap<String, Boolean> dictFeats;
+	public HashMap<String, String> dictBackgroundTraits;
 	
 	ArrayList<Item> inventory;
 		
