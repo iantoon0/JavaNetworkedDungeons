@@ -46,5 +46,14 @@ public class Dungeon {
 			}
 			System.out.println("");
 		}
+		System.out.println("");
+		System.out.println("");
+		for(ArrayList<DungeonTile> dRow : dungeonMap){
+			for (DungeonTile dTile : dRow){
+				System.out.print(dTile.printLight());
+			}
+			System.out.println("");
+		}
 	}
+	
 }

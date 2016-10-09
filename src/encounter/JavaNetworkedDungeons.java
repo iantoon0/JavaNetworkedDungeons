@@ -24,7 +24,7 @@ public class JavaNetworkedDungeons {
 		jndp.outputCampaign(c);
 		Dungeon d = new Dungeon(40);
 		d.dungeonMap.get(8).get(8).encounterActor = h;
-		d.dungeonMap.get(9).get(19).lightSources.add(new LightSource(60,0));
+		d.dungeonMap.get(8).get(14).lightSources.add(new LightSource(60,0));
 		d.dungeonMap.get(10).get(18).wall = true;
 		d.dungeonMap.get(11).get(18).wall = true;
 		d.dungeonMap.get(12).get(18).wall = true;
@@ -36,6 +36,10 @@ public class JavaNetworkedDungeons {
 		}
 		d.print();
 		d.updateVisibleTiles();
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
 		System.out.println("");
 		d.print();
 	}

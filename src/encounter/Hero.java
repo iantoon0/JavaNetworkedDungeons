@@ -1,5 +1,6 @@
 package encounter;
 
+import java.net.Socket;
 import java.util.*;
 
 public class Hero extends EncounterActor {
@@ -205,5 +206,17 @@ public class Hero extends EncounterActor {
 			dictSkills.put(s, dictSkills.get(s) + iProficiencyBonus);
 		}
 		iPassivePerception = dictSkills.get("perception") + 10;
+	}
+	public void shortRest(Socket actorSocket){
+		if (iXP >= iNextLvlXP){
+			iLevelUp();
+		}
+		if (iHP < iMaxHP){
+			//prompt: spend hit dice
+			
+		}
+	}
+	public void longRest(Socket actorSocket){
+		iHP = iMaxHP;
 	}
 }

@@ -44,7 +44,7 @@ public class DungeonTile {
 				visionLengthLeft = 0;
 			}
 			else if(lightLevel == 0){
-				if (h.dictFeats.containsKey("Truesight30") && visionLengthLeft >= 90){
+				if (h.dictFeats.containsKey("Truesight") && visionLengthLeft >= 90){
 					visionLengthLeft -= 5;
 					if(dx == dy){
 						if(diagAdd){
@@ -61,7 +61,7 @@ public class DungeonTile {
 				}
 			}
 			else if(lightLevel == 1){
-				if ((h.dictFeats.containsKey("Truesight30")  && visionLengthLeft >= 90)){
+				if ((h.dictFeats.containsKey("Truesight")  && visionLengthLeft >= 90)){
 					visionLengthLeft -= 5;
 					if(dx == dy){
 						if(diagAdd){
@@ -73,7 +73,7 @@ public class DungeonTile {
 						}
 					}
 				}
-				else if(h.dictFeats.containsKey("Darkvision120") || h.dictFeats.containsKey("Darkvision60") && visionLengthLeft >= 60){
+				else if(h.dictFeats.containsKey("Superior Darkvision") || h.dictFeats.containsKey("Darkvision") && visionLengthLeft >= 60){
 					visionLengthLeft -= 10;
 					if(dx == dy){
 						if(diagAdd){
@@ -90,7 +90,7 @@ public class DungeonTile {
 				}
 			}
 			else if(lightLevel == 2){
-				if ((h.dictFeats.containsKey("Truesight30")  && visionLengthLeft >= 90) || h.dictFeats.containsKey("Darkvision120") || h.dictFeats.containsKey("Darkvision60") && visionLengthLeft >= 60){
+				if ((h.dictFeats.containsKey("Truesight")  && visionLengthLeft >= 90) || h.dictFeats.containsKey("Superior Darkvision") || h.dictFeats.containsKey("Darkvision") && visionLengthLeft >= 60){
 					visionLengthLeft -= 5;
 					if(dx == dy){
 						if(diagAdd){
@@ -226,18 +226,24 @@ public class DungeonTile {
 		if(encounterActor != null){
 			return "X";
 		}
-		if (wall){
-			return "W";
-		}
 		if(lightSources.size() != 0){
 			return "*";
 		}
 		if(visible){
+			if (wall){
+				return "W";
+			}
 			return "1";
 		}
 		else{
 			return "0";
 		}
+	}
+	public String printLight(){
+		if(lightSources.size() != 0){
+			return "*";
+		}
+		return "" + lightLevel;
 	}
 	
 }
