@@ -24,8 +24,8 @@ public class Monk extends Hero {
 		iCurrentKi = 0;
 		iMaxHP = 8 + iConMod;
 	}
-	public void iLevelUp(){
-		super.iLevelUp();
+	public void levelUp(){
+		super.levelUp();
 		iMaxKi = iLevel;
 	}
 	public void shortRest(Socket actorSocket){
