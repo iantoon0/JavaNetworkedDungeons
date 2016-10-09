@@ -167,11 +167,14 @@ public class Hero extends EncounterActor {
 	}
 
 	
-	public void iLevelUp(){
+	public void levelUp(){
 		iLevel++;
 		iNextLvlXP = Constants.XP_LEVELS[iLevel];
 		if ((iLevel - 1) % 4 == 0){
 			iProficiencyBonus++;
+		}
+		if (iLevel % 4 == 0){
+			//Prompt: Choose feat or stats increase
 		}
 		calculateSkillMod();
 	}
@@ -179,7 +182,7 @@ public class Hero extends EncounterActor {
 	public void addXP(int iXP){
 		this.iXP += iXP;
 		if (this.iXP >= iNextLvlXP){
-			iLevelUp();
+			levelUp();
 		}
 	}
 	
@@ -209,7 +212,7 @@ public class Hero extends EncounterActor {
 	}
 	public void shortRest(Socket actorSocket){
 		if (iXP >= iNextLvlXP){
-			iLevelUp();
+			levelUp();
 		}
 		if (iHP < iMaxHP){
 			//prompt: spend hit dice
