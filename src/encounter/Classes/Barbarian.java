@@ -12,7 +12,7 @@ public class Barbarian extends Hero {
 		sClassName = "Barbarian";
 		bSpellcaster = false;
 	}
-	public void iLevelUp(){
-		super.iLevelUp();
+	public void levelUp(){
+		super.levelUp();
 	}
 }
