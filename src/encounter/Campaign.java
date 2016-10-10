@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Campaign {
 	public ArrayList<Hero> listParty;
+	public ArrayList<Spell> listActiveSpells; 
 	public Time currentTime;
 	boolean bInEncounter;
 	public Campaign(){
