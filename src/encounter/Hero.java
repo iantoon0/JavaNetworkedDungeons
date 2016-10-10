@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Hero extends EncounterActor {
 	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel;
+	public int[] iArraySpellSlots;
 	public boolean bInspiration, bSpellcaster;
 	public String sName, sRace, sClassName;
 	public ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
@@ -20,6 +21,7 @@ public class Hero extends EncounterActor {
 		iLevel = 1;
 		iXP = 0;
 		iProficiencyBonus = 2;
+		iArraySpellSlots = new int[9];
 		listProficiencies = new ArrayList<String>();
 		listSkillProficiencies = new ArrayList<String>();
 		listCantripsKnown = new ArrayList<String>();
