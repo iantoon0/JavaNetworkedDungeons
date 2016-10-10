@@ -101,7 +101,7 @@ public class Sorcerer extends Hero {
 				iCurrentSorceryPoints += 2;
 			}
 		iArrayCurrentSpellSlots = iArrayMaxSpellSlots;
-		
+		}
 		// do all stuff that a sorcerer can do in a long rest
 	}
 	
