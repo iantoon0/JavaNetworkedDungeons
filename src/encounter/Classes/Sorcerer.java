@@ -6,6 +6,9 @@ import encounter.Hero;
 
 public class Sorcerer extends Hero {
 	String sorcerousOrigin;
+	int iCurrentSorceryPoints;
+	int iMaxSorceryPoints;
+	
 	public Sorcerer(){
 		sClassName = "Sorcerer";
 		bSpellcaster = true;
@@ -76,11 +79,29 @@ public class Sorcerer extends Hero {
 	}
 	public void shortRest(Socket actorSocket){
 		super.shortRest(actorSocket);
+		if(iLevel == 20){
+			if(iCurrentSorceryPoints + 4 >= iMaxSorceryPoints){
+				iCurrentSorceryPoints = iMaxSorceryPoints;
+			}
+			else{
+				iCurrentSorceryPoints += 4;
+			}
+		}
+		
 		// do all stuff that a sorcerer can do in a short rest
 	}
 	public void longRest(Socket actorSocket){
 		this.shortRest(actorSocket);
 		super.longRest(actorSocket);
+		if(iLevel != 20){
+			if(iCurrentSorceryPoints + 2 >= iMaxSorceryPoints){
+				iCurrentSorceryPoints = iMaxSorceryPoints;
+			}
+			else{
+				iCurrentSorceryPoints += 2;
+			}
+		iArrayCurrentSpellSlots = iArrayMaxSpellSlots;
+		
 		// do all stuff that a sorcerer can do in a long rest
 	}
 	
