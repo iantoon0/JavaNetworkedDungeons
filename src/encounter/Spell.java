@@ -2,6 +2,7 @@ package encounter;
 
 public class Spell {
 	int irange;
+	char[] componentCharArray;
 	Time castTime, durationTime;
 	Object activeTarget;
 	//classtype Target (Tile, Monster, Hero, etc.)
