@@ -1,5 +1,6 @@
 package encounter.Classes;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import encounter.Hero;
@@ -31,38 +32,38 @@ public class Cleric extends Hero {
 		//prompt skill proficiencies 
 		//put everthing that a sorcerer gets at level 1 here
 	}
-	public void Levelup(){
-		super.levelUp();
+	public void levelup(Socket actorSocket) throws IOException{
+		super.levelUp(actorSocket);
 		if(iLevel == 2){
 			dictFeats.put("Channel Divinity (1/rest)", true);
 			switch (sDomain){
 			
 			case "Knowledge Domain": 
-				dictFeats.put("channel Divinity: Knowledge of the Ages", true);
+				dictFeats.put("Channel Divinity: Knowledge of the Ages", true);
 				break;
 				
 			case "Life Domain": 
-				dictFeats.put("channel Divinity: Preserve Life", true);
+				dictFeats.put("Channel Divinity: Preserve Life", true);
 				break;
 				
 			case "Light Domain": 
-				dictFeats.put("channel Divinity: Radiance of the Dawn", true);
+				dictFeats.put("Channel Divinity: Radiance of the Dawn", true);
 				break;
 				
 			case "Nature Domain": 
-				dictFeats.put("channel Divinity: Charm Animals and Plants", true);
+				dictFeats.put("Channel Divinity: Charm Animals and Plants", true);
 				break;
 				
 			case "Tempest Domain": 
-				dictFeats.put("channel Divinity: Destructive Wrath", true);
+				dictFeats.put("Channel Divinity: Destructive Wrath", true);
 				break;
 				
 			case "Trickery Domain": 
-				dictFeats.put("channel Divinity: Invoke Duplicity", true);
+				dictFeats.put("Channel Divinity: Invoke Duplicity", true);
 				break;
 				
 			case "War Domain": 
-				dictFeats.put("channel Divinity: Guided Strike", true);
+				dictFeats.put("Channel Divinity: Guided Strike", true);
 				break;
 				
 			}
@@ -75,11 +76,11 @@ public class Cleric extends Hero {
 			switch (sDomain){
 			
 			case "Knowledge Domain": 
-				dictFeats.put("channel Divinity: Read Thought", true);
+				dictFeats.put("Channel Divinity: Read Thought", true);
 				break;
 				
 			case "Life Domain": 
-				dictFeats.put("channel Divinity: Blessed Health", true);
+				dictFeats.put("Channel Divinity: Blessed Health", true);
 				break;
 				
 			case "Light Domain": 
@@ -87,19 +88,19 @@ public class Cleric extends Hero {
 				break;
 				
 			case "Nature Domain": 
-				dictFeats.put("channel Divinity: Dampen Elements", true);
+				dictFeats.put("Channel Divinity: Dampen Elements", true);
 				break;
 				
 			case "Tempest Domain": 
-				dictFeats.put("channel Divinity: Thunderbolt Strike", true);
+				dictFeats.put("Channel Divinity: Thunderbolt Strike", true);
 				break;
 				
 			case "Trickery Domain": 
-				dictFeats.put("channel Divinity: Cloak of Shadows", true);
+				dictFeats.put("Channel Divinity: Cloak of Shadows", true);
 				break;
 				
 			case "War Domain": 
-				dictFeats.put("channel Divinity: War God's Blessing", true);
+				dictFeats.put("Channel Divinity: War God's Blessing", true);
 				break;
 			}
 		}

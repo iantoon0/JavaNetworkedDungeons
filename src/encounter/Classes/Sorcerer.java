@@ -1,6 +1,10 @@
 package encounter.Classes;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import encounter.Hero;
 
@@ -21,7 +25,7 @@ public class Sorcerer extends Hero {
 		//prompt skill proficiencies 
 		//put everthing that a sorcerer gets at level 1 here
 		}
-	public Sorcerer(String r){
+	public Sorcerer(String r, PrintWriter pw, BufferedReader br){
 		super(r);
 		sClassName = "Sorcerer";
 		bSpellcaster = true;
@@ -31,10 +35,11 @@ public class Sorcerer extends Hero {
 		listProficiencies.add("Slings");
 		listProficiencies.add("Quarterstaffs");
 		listProficiencies.add("Light Crossbows");
+		
 		//prompt skill proficiencies 
 		//put everthing that a sorcerer gets at level 1 here
 	}
-	public void levelUp(Socket actorSocket){
+	public void levelUp(Socket actorSocket) throws IOException{
 		super.levelUp(actorSocket);
 		iMaxSorceryPoints = iLevel;
 		if(iLevel == 2){
@@ -47,7 +52,7 @@ public class Sorcerer extends Hero {
 			if(sorcerousOrigin.equals("draconic")){
 				dictFeats.put("Elemental Affinity", true);
 			}
-			else if(sorcerousOrigin.equals("wild magic")){
+			else if(sorcerousOrigin.equals("Wild Magic")){
 				
 				dictFeats.put("Bend Luck", true);
 			}

@@ -10,7 +10,7 @@ import java.util.*;
 public class Hero extends EncounterActor {
 	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel, iHitDie, iTotalNumHitDice, iCurrentNumHitDice;
 	public int[] iArrayCurrentSpellSlots, iArrayMaxSpellSlots;
-	public boolean bInspiration, bSpellcaster, bHasTakenAction, bHasTakenBonusAction, bHasTakenReaction;
+	public boolean bInspiration;
 	public String sName, sRace, sClassName;
 	public ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
 	public ArrayList<String> listProficiencies, listCantripsKnown, listLanguages, listSkillProficiencies;
@@ -248,21 +248,21 @@ public class Hero extends EncounterActor {
 				for (int i = 1; i <= iCurrentNumHitDice; i++){
 					tempArrayList.add(i + "d" + iHitDie);
 				}
-				String diceRolledString = prompt(pw, br, "Spend Hit Dice?", tempArrayList);
+				String diceRolledString = prompt(pw, br, "Spend Hit Dice?", tempArrayList, 1);
 				int diceType = Integer.parseInt(diceRolledString.substring(2));
 				int diceNumber = Integer.parseInt(diceRolledString.substring(0,1));
 				DiceRoller dr = new DiceRoller();
 				iCurrentNumHitDice -= diceNumber;
 				switch (diceType) {
-				case 4: iHP += dr.d4(diceNumber);
+				case 4: iHP += (diceNumber * iConMod) + dr.d4(diceNumber);
 					break;
-				case 6: iHP += dr.d6(diceNumber);
+				case 6: iHP += (diceNumber * iConMod) + dr.d6(diceNumber);
 					break;
-				case 8: iHP += dr.d8(diceNumber);
+				case 8: iHP += (diceNumber * iConMod) + dr.d8(diceNumber);
 					break;
-				case 10: iHP += dr.d10(diceNumber);
+				case 10: iHP += (diceNumber * iConMod) + dr.d10(diceNumber);
 					break;
-				case 12: iHP += dr.d12(diceNumber);
+				case 12: iHP += (diceNumber * iConMod) + dr.d12(diceNumber);
 					break;
 				default:
 					break;
@@ -273,14 +273,33 @@ public class Hero extends EncounterActor {
 			}
 		}
 	}
-	public String prompt(PrintWriter pw, BufferedReader br, String sTitle, ArrayList<String> options) throws IOException{
+	public String prompt(PrintWriter pw, BufferedReader br, String sTitle, ArrayList<String> options, int numSelectable) throws IOException{
 		String writeString = new String();
 		writeString = "Prompt: '" + sTitle + "' ";
 		writeString += "Options: [";
 		for(String s : options){
 			writeString += ("'" + s + "', ");
 		}
-		writeString += "]";
+		writeString += "], " + numSelectable;
+		pw.write(writeString);
+		while(!br.ready()){
+			try {
+				wait(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return br.readLine();
+	}
+	public String combatPrompt(PrintWriter pw, BufferedReader br, String sTitle, ArrayList<String> options, int numSelectable) throws IOException{
+		String writeString = new String();
+		writeString = "CombatPrompt: '" + sTitle + "' ";
+		writeString += "Options: [";
+		for(String s : options){
+			writeString += ("'" + s + "', ");
+		}
+		writeString += "], " + numSelectable;
 		pw.write(writeString);
 		while(!br.ready()){
 			try {
@@ -296,4 +315,9 @@ public class Hero extends EncounterActor {
 		iHP = iMaxHP;
 		iCurrentNumHitDice = iTotalNumHitDice;
 	}
+	
+	public void determineActions(){
+		//TODO Add possible actions & conditions to determineActions
+	}
+	
 }
