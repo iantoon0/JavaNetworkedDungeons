@@ -188,6 +188,40 @@ public class Hero extends EncounterActor {
 		}
 		if (iLevel % 4 == 0){
 			//Prompt: Choose feat or stats increase
+			PrintWriter pw = new PrintWriter(actorSocket.getOutputStream());
+			BufferedReader br = new BufferedReader( new InputStreamReader(actorSocket.getInputStream()));
+			ArrayList<String> tempArrayList = new ArrayList<String>(); tempArrayList.add("New Feature");tempArrayList.add("Stats Increase");
+			if(prompt(pw, br, "Choose A Feat Or Stat Increase", tempArrayList, 1).equals("New Feature")){
+				tempArrayList = new ArrayList<String>();
+				tempArrayList.add("");tempArrayList.add("");tempArrayList.add("");tempArrayList.add("");tempArrayList.add("");//TODO add possible class-independent feats
+				dictFeats.put(prompt(pw, br, "Choose A Feat Or Stat Increase", tempArrayList, 1), true);
+			}
+			else{
+				tempArrayList = new ArrayList<String>();
+				tempArrayList.add("Strength"); tempArrayList.add("Dexterity"); tempArrayList.add("Constitution");
+				tempArrayList.add("Intelligence");tempArrayList.add("Wisdom");tempArrayList.add("Charisma");
+				String tempString = prompt(pw, br, "Choose 1 Stat to increase by 2, or 2 stats to increase by 1 each", tempArrayList, 2);
+				String[] tempStringArray = new String[2];
+				tempStringArray[0] = tempString.substring(0, tempString.indexOf(','));
+				tempStringArray[1] = tempString.substring(tempString.indexOf(','));
+				for(String tempString2 : tempStringArray){
+					switch (tempString2){
+					case "Strength": iStr++;
+						break;
+					case "Dexterity": iDex++;
+						break;
+					case "Constitution": iCon++;
+						break;
+					case "Intelligence": iInt++;
+						break;
+					case "Wisdom": iWis++;
+						break;
+					case "Charisma": iCha++;
+						break;
+					}
+				}
+			}
+			
 		}
 		calculateSkillMod();
 	}
@@ -198,7 +232,6 @@ public class Hero extends EncounterActor {
 			try {
 				levelUp(actorSocket);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -233,7 +266,6 @@ public class Hero extends EncounterActor {
 			try {
 				levelUp(actorSocket);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -268,7 +300,6 @@ public class Hero extends EncounterActor {
 					break;
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -286,7 +317,6 @@ public class Hero extends EncounterActor {
 			try {
 				wait(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -305,7 +335,6 @@ public class Hero extends EncounterActor {
 			try {
 				wait(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
