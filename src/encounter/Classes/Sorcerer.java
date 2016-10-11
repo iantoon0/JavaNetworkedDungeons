@@ -36,6 +36,7 @@ public class Sorcerer extends Hero {
 	}
 	public void levelUp(){
 		super.levelUp();
+		iMaxSorceryPoints = iLevel;
 		if(iLevel == 2){
 			dictFeats.put("Font Of Magic", true);
 		}
