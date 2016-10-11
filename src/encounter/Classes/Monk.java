@@ -1,6 +1,11 @@
 package encounter.Classes;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import encounter.EncounterActor;
@@ -30,13 +35,25 @@ public class Monk extends Hero {
 		dictFeats.put("Unarmored Defense", true);
 		dictFeats.put("Martial Arts", true);
 	}
-	public void levelUp(){
-		super.levelUp();
+	public void levelUp(Socket actorSocket) throws IOException{
+		super.levelUp(actorSocket);
+		PrintWriter pw = null;
+		BufferedReader br = null;
+		try {
+			pw = new PrintWriter(actorSocket.getOutputStream());
+			br = new BufferedReader( new InputStreamReader(actorSocket.getInputStream()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		iMaxKi = iLevel;
 		switch (iLevel){
 		case 2: dictFeats.put("Unarmored Movement", true); iUnarmoredSpeed = 10;
 			break;
-		case 3: /*Prompt: Choose path*/ dictFeats.put("Deflect Missiles", true); 
+		case 3: /*Prompt: Choose path*/
+			ArrayList<String> tempArrayList = new ArrayList<String>(); tempArrayList.add("Way Of The Open Hand"); tempArrayList.add("Way Of Shadows"); tempArrayList.add("Way Of The Four Elements");
+			prompt(pw, br, "Choose A Path", tempArrayList);
+			dictFeats.put("Deflect Missiles", true); 
 			break;
 		case 4: dictFeats.put("Slow Fall", true);
 			break;
@@ -69,7 +86,7 @@ public class Monk extends Hero {
 			break;
 		}
 		switch (sPath){
-		case "hand":
+		case "Way Of The Open Hand":
 			switch (iLevel){
 			case 3: dictFeats.put("Open Hand Technique", true);
 				break;
@@ -81,7 +98,7 @@ public class Monk extends Hero {
 				break;
 			}
 			break;
-		case "shadow": 
+		case "Way Of Shadow": 
 			switch (iLevel){
 			case 3: dictFeats.put("Shadow Arts", true);
 				break;
@@ -93,7 +110,7 @@ public class Monk extends Hero {
 				break;
 			}
 			break;
-		case "elemental":
+		case "Way Of The Four Elements":
 			switch (iLevel){
 			case 3: //Prompt: Choose elemental discipline
 				break;

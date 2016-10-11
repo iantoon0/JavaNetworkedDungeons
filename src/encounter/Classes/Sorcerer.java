@@ -34,8 +34,8 @@ public class Sorcerer extends Hero {
 		//prompt skill proficiencies 
 		//put everthing that a sorcerer gets at level 1 here
 	}
-	public void levelUp(){
-		super.levelUp();
+	public void levelUp(Socket actorSocket){
+		super.levelUp(actorSocket);
 		iMaxSorceryPoints = iLevel;
 		if(iLevel == 2){
 			dictFeats.put("Font Of Magic", true);

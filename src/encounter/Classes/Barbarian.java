@@ -1,5 +1,7 @@
 package encounter.Classes;
 
+import java.net.Socket;
+
 import encounter.Hero;
 
 public class Barbarian extends Hero {
@@ -12,7 +14,7 @@ public class Barbarian extends Hero {
 		sClassName = "Barbarian";
 		bSpellcaster = false;
 	}
-	public void levelUp(){
-		super.levelUp();
+	public void levelUp(Socket actorSocket){
+		super.levelUp(actorSocket);
 	}
 }

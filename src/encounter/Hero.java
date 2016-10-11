@@ -1,10 +1,14 @@
 package encounter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.*;
 
 public class Hero extends EncounterActor {
-	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel;
+	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel, iHitDie, iTotalNumHitDice, iCurrentNumHitDice;
 	public int[] iArrayCurrentSpellSlots, iArrayMaxSpellSlots;
 	public boolean bInspiration, bSpellcaster, bHasTakenAction, bHasTakenBonusAction, bHasTakenReaction;
 	public String sName, sRace, sClassName;
@@ -176,7 +180,7 @@ public class Hero extends EncounterActor {
 		bHasTakenBonusAction = false;
 		bHasTakenReaction = false;
 	}
-	public void levelUp(){
+	public void levelUp(Socket actorSocket) throws IOException{
 		iLevel++;
 		iNextLvlXP = Constants.XP_LEVELS[iLevel];
 		if ((iLevel - 1) % 4 == 0){
@@ -188,10 +192,15 @@ public class Hero extends EncounterActor {
 		calculateSkillMod();
 	}
 	
-	public void addXP(int iXP){
+	public void addXP(int iXP, Socket actorSocket){
 		this.iXP += iXP;
 		if (this.iXP >= iNextLvlXP){
-			levelUp();
+			try {
+				levelUp(actorSocket);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -221,14 +230,70 @@ public class Hero extends EncounterActor {
 	}
 	public void shortRest(Socket actorSocket){
 		if (iXP >= iNextLvlXP){
-			levelUp();
+			try {
+				levelUp(actorSocket);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if (iHP < iMaxHP){
 			//prompt: spend hit dice
-			
+			PrintWriter pw = null;
+			BufferedReader br = null;
+			try {
+				pw = new PrintWriter(actorSocket.getOutputStream());
+				br = new BufferedReader( new InputStreamReader(actorSocket.getInputStream()));
+				ArrayList<String> tempArrayList = new ArrayList<String>(); 
+				for (int i = 1; i <= iCurrentNumHitDice; i++){
+					tempArrayList.add(i + "d" + iHitDie);
+				}
+				String diceRolledString = prompt(pw, br, "Spend Hit Dice?", tempArrayList);
+				int diceType = Integer.parseInt(diceRolledString.substring(2));
+				int diceNumber = Integer.parseInt(diceRolledString.substring(0,1));
+				DiceRoller dr = new DiceRoller();
+				iCurrentNumHitDice -= diceNumber;
+				switch (diceType) {
+				case 4: iHP += dr.d4(diceNumber);
+					break;
+				case 6: iHP += dr.d6(diceNumber);
+					break;
+				case 8: iHP += dr.d8(diceNumber);
+					break;
+				case 10: iHP += dr.d10(diceNumber);
+					break;
+				case 12: iHP += dr.d12(diceNumber);
+					break;
+				default:
+					break;
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+	}
+	public String prompt(PrintWriter pw, BufferedReader br, String sTitle, ArrayList<String> options) throws IOException{
+		String writeString = new String();
+		writeString = "Prompt: '" + sTitle + "' ";
+		writeString += "Options: [";
+		for(String s : options){
+			writeString += ("'" + s + "', ");
+		}
+		writeString += "]";
+		pw.write(writeString);
+		while(!br.ready()){
+			try {
+				wait(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return br.readLine();
 	}
 	public void longRest(Socket actorSocket){
 		iHP = iMaxHP;
+		iCurrentNumHitDice = iTotalNumHitDice;
 	}
 }
