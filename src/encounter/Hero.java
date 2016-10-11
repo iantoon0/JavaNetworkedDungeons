@@ -6,7 +6,7 @@ import java.util.*;
 public class Hero extends EncounterActor {
 	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel;
 	public int[] iArrayCurrentSpellSlots, iArrayMaxSpellSlots;
-	public boolean bInspiration, bSpellcaster;
+	public boolean bInspiration, bSpellcaster, bHasTakenAction, bHasTakenBonusAction, bHasTakenReaction;
 	public String sName, sRace, sClassName;
 	public ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
 	public ArrayList<String> listProficiencies, listCantripsKnown, listLanguages, listSkillProficiencies;
@@ -171,7 +171,11 @@ public class Hero extends EncounterActor {
 		}
 	}
 
-	
+	public void takeTurn(){
+		bHasTakenAction = false;
+		bHasTakenBonusAction = false;
+		bHasTakenReaction = false;
+	}
 	public void levelUp(){
 		iLevel++;
 		iNextLvlXP = Constants.XP_LEVELS[iLevel];
