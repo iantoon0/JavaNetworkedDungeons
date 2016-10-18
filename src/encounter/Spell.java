@@ -1,11 +1,14 @@
 package encounter;
 
 public class Spell {
-	int range;
-	Time castTime;
+	int irange;
+	char[] componentCharArray;
+	Time castTime, durationTime;
+	Object activeTarget;
 	//classtype Target (Tile, Monster, Hero, etc.)
 	public Spell(){
-		range = 0;
+		irange = 0;
 		castTime = new Time();
+		durationTime = new Time();
 	}
 }

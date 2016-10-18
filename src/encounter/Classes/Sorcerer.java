@@ -1,11 +1,18 @@
 package encounter.Classes;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import encounter.Hero;
 
 public class Sorcerer extends Hero {
 	String sorcerousOrigin;
+	int iCurrentSorceryPoints;
+	int iMaxSorceryPoints;
+	
 	public Sorcerer(){
 		sClassName = "Sorcerer";
 		bSpellcaster = true;
@@ -18,7 +25,7 @@ public class Sorcerer extends Hero {
 		//prompt skill proficiencies 
 		//put everthing that a sorcerer gets at level 1 here
 		}
-	public Sorcerer(String r){
+	public Sorcerer(String r, PrintWriter pw, BufferedReader br){
 		super(r);
 		sClassName = "Sorcerer";
 		bSpellcaster = true;
@@ -28,11 +35,13 @@ public class Sorcerer extends Hero {
 		listProficiencies.add("Slings");
 		listProficiencies.add("Quarterstaffs");
 		listProficiencies.add("Light Crossbows");
+		
 		//prompt skill proficiencies 
 		//put everthing that a sorcerer gets at level 1 here
 	}
-	public void levelUp(){
-		super.levelUp();
+	public void levelUp(Socket actorSocket) throws IOException{
+		super.levelUp(actorSocket);
+		iMaxSorceryPoints = iLevel;
 		if(iLevel == 2){
 			dictFeats.put("Font Of Magic", true);
 		}
@@ -43,7 +52,7 @@ public class Sorcerer extends Hero {
 			if(sorcerousOrigin.equals("draconic")){
 				dictFeats.put("Elemental Affinity", true);
 			}
-			else if(sorcerousOrigin.equals("wild magic")){
+			else if(sorcerousOrigin.equals("Wild Magic")){
 				
 				dictFeats.put("Bend Luck", true);
 			}
@@ -76,11 +85,29 @@ public class Sorcerer extends Hero {
 	}
 	public void shortRest(Socket actorSocket){
 		super.shortRest(actorSocket);
+		if(iLevel == 20){
+			if(iCurrentSorceryPoints + 4 >= iMaxSorceryPoints){
+				iCurrentSorceryPoints = iMaxSorceryPoints;
+			}
+			else{
+				iCurrentSorceryPoints += 4;
+			}
+		}
+		
 		// do all stuff that a sorcerer can do in a short rest
 	}
 	public void longRest(Socket actorSocket){
 		this.shortRest(actorSocket);
 		super.longRest(actorSocket);
+		if(iLevel != 20){
+			if(iCurrentSorceryPoints + 2 >= iMaxSorceryPoints){
+				iCurrentSorceryPoints = iMaxSorceryPoints;
+			}
+			else{
+				iCurrentSorceryPoints += 2;
+			}
+		iArrayCurrentSpellSlots = iArrayMaxSpellSlots;
+		}
 		// do all stuff that a sorcerer can do in a long rest
 	}
 	
