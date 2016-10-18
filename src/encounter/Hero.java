@@ -33,7 +33,7 @@ public class Hero extends EncounterActor {
 		listLanguages = new ArrayList<String>();
 		DiceRoller dr = new DiceRoller();
 		iStr = 10; iCon = 10; iDex = 10; iWis = 10; iInt = 10; iCha = 10;
-		
+		dictStatusEffects.put("Blinded", false); dictStatusEffects.put("Stunned", false); 
 		dictSkills = new HashMap<String, Integer>();
 		dictFeats = new HashMap<String, Boolean>();
 		dictBackgroundTraits = new HashMap<String, String>();
@@ -85,9 +85,6 @@ public class Hero extends EncounterActor {
 			iMoveSpeed = 30;
 			
 			break;
-		
-		case "dragonbornBlack":
-			
 			
 		case "tiefling": 
 			iCha += 2; iInt++; 
@@ -238,6 +235,7 @@ public class Hero extends EncounterActor {
 	}
 	
 	public void calculateSkillMod(){
+		calculateStatMod();
 		dictSkills.put("acrobatics", iDexMod);
 		dictSkills.put("animalHandling", iWisMod);
 		dictSkills.put("arcana", iIntMod);
@@ -347,6 +345,8 @@ public class Hero extends EncounterActor {
 	
 	public void determineActions(){
 		//TODO Add possible actions & conditions to determineActions
+		listActions = new ArrayList<String>();
+		listActions.add("Attack");
 	}
 	
 }

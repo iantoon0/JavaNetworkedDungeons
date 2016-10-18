@@ -23,11 +23,11 @@ public class JavaNetworkedDungeons {
 		System.out.println(gson.toJson(c));
 		jndp.outputCampaign(c);
 		Dungeon d = new Dungeon(40);
-		d.dungeonMap.get(8).get(8).encounterActor = h;
-		d.dungeonMap.get(8).get(14).lightSources.add(new LightSource(60,0));
-		d.dungeonMap.get(10).get(18).wall = true;
-		d.dungeonMap.get(11).get(18).wall = true;
-		d.dungeonMap.get(12).get(18).wall = true;
+		d.dungeonMap.get(8).get(8).encounterActor = h; //Adds a player who has darkvision to the map
+		d.dungeonMap.get(8).get(14).lightSources.add(new LightSource(60,0));//Adds a new light source with strength 60
+		d.dungeonMap.get(10).get(18).wall = true;//*************************
+		d.dungeonMap.get(11).get(18).wall = true;//**Creates a 3 by 1 wall**
+		d.dungeonMap.get(12).get(18).wall = true;//*************************
 		try {
 			d.determineLightLevels();
 		} catch (InterruptedException e) {

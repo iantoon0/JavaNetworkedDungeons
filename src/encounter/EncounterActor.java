@@ -8,6 +8,7 @@ public class EncounterActor {
 	iHP, iTempHP, iMaxHP, iInitiative, iInitiativeMod, iArmorClass, iMoveSpeed, iPassivePerception;
 	public boolean bSpellcaster, bHasTakenAction, bHasTakenBonusAction, bHasTakenReaction, bHasTakenMoveAction;
 	public ArrayList<String> listActions, listBonusActions, listReactions, listMoveActions;
+	public HashMap<String, Boolean> dictStatusEffects;
 	//ClientThread controller;
 	void calculateStatMod(){
 		this.iStrMod = Math.floorDiv(iStr-10, 2);
