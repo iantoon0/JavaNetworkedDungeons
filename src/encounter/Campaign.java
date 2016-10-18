@@ -8,6 +8,7 @@ import java.util.*;
 public class Campaign {
 	public ArrayList<Hero> listParty;
 	public ArrayList<Spell> listActiveSpells; 
+	public HashMap<String, ArrayList<TextMessage>> dictChatLog;
 	public Time currentTime;
 	boolean bInEncounter;
 	public Campaign(){
@@ -28,5 +29,15 @@ public class Campaign {
 			h.longRest(actorSocketMap.get(h));
 		}
 		//calculate exhaustion levels & such
+	}
+	public void updateChatLog(JavaNetworkDungeonsProtocol jndp, TextMessage message){
+		if(dictChatLog.containsKey(message.strLanguage)){
+			dictChatLog.get(message.strLanguage).add(message);
+		}
+		else{
+			ArrayList<TextMessage> messageArray = new ArrayList<TextMessage>();
+			messageArray.add(message);
+			dictChatLog.put(message.strLanguage, messageArray);
+		}
 	}
 }

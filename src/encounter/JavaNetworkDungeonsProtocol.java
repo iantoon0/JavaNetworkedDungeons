@@ -24,6 +24,9 @@ public class JavaNetworkDungeonsProtocol {
 			processHero(input);
 		}
 		*/
+		if(input.contains("chat")){//recieved as "chat:language,contents"
+			TextMessage message = new TextMessage(input.substring(5, input.indexOf(",")), input.substring(input.indexOf(",")));
+		}
 		if(input.contains("party")){
 			c = gson.fromJson(input, Campaign.class);
 		}
