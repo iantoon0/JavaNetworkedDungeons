@@ -1,27 +1,45 @@
 package encounter;
 
 import java.net.*;
+import java.util.ArrayList;
+
+import com.google.gson.Gson;
+
 import java.io.*;
 
 public class ClientThread extends Thread {
 	
 	Socket clientSocket;
 	Campaign c;
+	Gson gson = new Gson();
 	
 	public ClientThread(Socket clientSocket, Campaign c){
 		this.clientSocket = clientSocket;
 		this.c = c;
+		System.out.println("Created new ClientThread!");
 	}
 	public void run(){
 		try {
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			
-			JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(out,c);
+			PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
+			BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			String writeString = new String();
+			ArrayList<String> temp = new ArrayList<String>();
+			temp.add("Player"); temp.add("DM");
+			Prompt p = new Prompt("Are you a player or a DM?", temp, 1);
+			writeString = gson.toJson(p);
+			pw.write(writeString + "<EOF>");
+			while(!br.ready()){
+				try {
+					wait(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(pw,c);
 			String inputLine;
 			while (true){
-				while ((inputLine = in.readLine()) != null) {
-			        jndp.processInput(inputLine, in);
+				while ((inputLine = br.readLine()) != null) {
+			        jndp.processInput(inputLine, br);
 				}
 				jndp.outputCampaign(c);
 				sleep(250);

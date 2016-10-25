@@ -1,10 +1,10 @@
 package encounter;
 
 public class TextMessage {
-	public String strLanguage;
-	public String strContents;
-	public TextMessage(String lang, String contents){
-		this.strContents = contents;
-		this.strLanguage = lang;
+	public String sLanguage, sContents, sNameSpeaker;
+	public TextMessage(String sNameSpeaker, String lang, String contents){
+		this.sNameSpeaker = sNameSpeaker;
+		this.sContents = contents;
+		this.sLanguage = lang;
 	}
 }

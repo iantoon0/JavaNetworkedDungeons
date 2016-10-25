@@ -7,10 +7,12 @@ public class DungeonTile {
 	public ArrayList<Point> surroundingPoints;
 	public ArrayList<LightSource> lightSources;
 	public ArrayList<Object> contents, n_Wallcontents, e_Wallcontents, s_Wallcontents, w_WallContents;
+	public HashMap<Hero, Boolean> dictHeroVisibility;
 	public EncounterActor encounterActor;
 	int lightLevel; //0-3, Magic dark/Total dark/Dim/Bright
-	boolean visible, wasSeen, wall, lightLevelCalculated;
+	boolean wasSeen, wall, lightLevelCalculated;
 	public DungeonTile(Dungeon d, Point p){
+		dictHeroVisibility = new HashMap<Hero, Boolean>();
 		wall = false;
 		lightSources = new ArrayList<LightSource>();
 		if(wall){
@@ -25,7 +27,7 @@ public class DungeonTile {
 		//DETERMINE SURROUNDING POINTS HERE
 	}
 	public void RecursiveVisionMethod(LinkedList<Point> nextPoints, int visionLengthLeft, Hero h, Dungeon d, Point prevPoint, boolean diagAdd){
-		visible = true; wasSeen = true;
+		dictHeroVisibility.put(h, true); wasSeen = true;
 		int dx = 0;
 		int dy = 1;
 		if(prevPoint != null){
@@ -226,18 +228,10 @@ public class DungeonTile {
 		if(encounterActor != null){
 			return "X";
 		}
-		if(lightSources.size() != 0){
+		else if(lightSources.size() != 0){
 			return "*";
 		}
-		if(visible){
-			if (wall){
-				return "W";
-			}
-			return "1";
-		}
-		else{
-			return "0";
-		}
+		return "";
 	}
 	public String printLight(){
 		if(lightSources.size() != 0){

@@ -11,6 +11,7 @@ public class Campaign {
 	public HashMap<String, ArrayList<TextMessage>> dictChatLog;
 	public Time currentTime;
 	boolean bInEncounter;
+	public ArrayList<Dungeon> listDungeons;
 	public Campaign(){
 		listParty = new ArrayList<Hero>();
 	}
@@ -30,14 +31,14 @@ public class Campaign {
 		}
 		//calculate exhaustion levels & such
 	}
-	public void updateChatLog(JavaNetworkDungeonsProtocol jndp, TextMessage message){
-		if(dictChatLog.containsKey(message.strLanguage)){
-			dictChatLog.get(message.strLanguage).add(message);
+	public void updateChatLog(TextMessage message){
+		if(dictChatLog.containsKey(message.sLanguage)){
+			dictChatLog.get(message.sLanguage).add(message);
 		}
 		else{
 			ArrayList<TextMessage> messageArray = new ArrayList<TextMessage>();
 			messageArray.add(message);
-			dictChatLog.put(message.strLanguage, messageArray);
+			dictChatLog.put(message.sLanguage, messageArray);
 		}
 	}
 }

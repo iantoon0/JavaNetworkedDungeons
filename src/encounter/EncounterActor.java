@@ -9,6 +9,10 @@ public class EncounterActor {
 	public boolean bSpellcaster, bHasTakenAction, bHasTakenBonusAction, bHasTakenReaction, bHasTakenMoveAction;
 	public ArrayList<String> listActions, listBonusActions, listReactions, listMoveActions;
 	public HashMap<String, Boolean> dictStatusEffects;
+	public EncounterActor(){
+		dictStatusEffects = new HashMap<String, Boolean>();
+		dictStatusEffects.put("inEtherealPlane", false);
+	}
 	//ClientThread controller;
 	void calculateStatMod(){
 		this.iStrMod = Math.floorDiv(iStr-10, 2);

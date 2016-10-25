@@ -9,7 +9,7 @@ import java.net.*;
 import encounter.Classes.*;
 
 public class JavaNetworkedDungeons {
-	public static void main(String[] args){
+	public static void main(String[] args) throws UnknownHostException{
 		// TODO Auto-generated method stub
 		Campaign c = new Campaign();
 		HashMap<EncounterActor, Socket> actorSocketMap = new HashMap<EncounterActor, Socket>();
@@ -34,13 +34,6 @@ public class JavaNetworkedDungeons {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		d.print();
-		d.updateVisibleTiles();
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		d.print();
+		System.out.println(InetAddress.getLocalHost().getHostAddress());
 	}
 }

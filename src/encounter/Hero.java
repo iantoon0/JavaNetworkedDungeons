@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.*;
 
+import com.google.gson.Gson;
+
 public class Hero extends EncounterActor {
 	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel, iHitDie, iTotalNumHitDice, iCurrentNumHitDice;
 	public int[] iArrayCurrentSpellSlots, iArrayMaxSpellSlots;
@@ -18,7 +20,7 @@ public class Hero extends EncounterActor {
 	public HashMap<String, Boolean> dictFeats;
 	public HashMap<String, String> dictBackgroundTraits;
 	
-	ArrayList<Item> inventory;
+	ArrayList<Item> listInventory;
 		
 	public Hero(){
 		iNextLvlXP = 300;
@@ -31,7 +33,6 @@ public class Hero extends EncounterActor {
 		listSkillProficiencies = new ArrayList<String>();
 		listCantripsKnown = new ArrayList<String>();
 		listLanguages = new ArrayList<String>();
-		DiceRoller dr = new DiceRoller();
 		iStr = 10; iCon = 10; iDex = 10; iWis = 10; iInt = 10; iCha = 10;
 		dictStatusEffects.put("Blinded", false); dictStatusEffects.put("Stunned", false); 
 		dictSkills = new HashMap<String, Integer>();
@@ -284,15 +285,15 @@ public class Hero extends EncounterActor {
 				DiceRoller dr = new DiceRoller();
 				iCurrentNumHitDice -= diceNumber;
 				switch (diceType) {
-				case 4: iHP += (diceNumber * iConMod) + dr.d4(diceNumber);
+				case 4: iHP += (diceNumber * iConMod) + dr.d4(diceNumber, sName, false);
 					break;
-				case 6: iHP += (diceNumber * iConMod) + dr.d6(diceNumber);
+				case 6: iHP += (diceNumber * iConMod) + dr.d6(diceNumber, sName, false);
 					break;
-				case 8: iHP += (diceNumber * iConMod) + dr.d8(diceNumber);
+				case 8: iHP += (diceNumber * iConMod) + dr.d8(diceNumber, sName, false);
 					break;
-				case 10: iHP += (diceNumber * iConMod) + dr.d10(diceNumber);
+				case 10: iHP += (diceNumber * iConMod) + dr.d10(diceNumber, sName, false);
 					break;
-				case 12: iHP += (diceNumber * iConMod) + dr.d12(diceNumber);
+				case 12: iHP += (diceNumber * iConMod) + dr.d12(diceNumber, sName, false);
 					break;
 				default:
 					break;
@@ -303,14 +304,11 @@ public class Hero extends EncounterActor {
 		}
 	}
 	public String prompt(PrintWriter pw, BufferedReader br, String sTitle, ArrayList<String> options, int numSelectable) throws IOException{
+		Prompt prompt = new Prompt(sTitle, options, numSelectable);
+		Gson gson = new Gson();
 		String writeString = new String();
-		writeString = "Prompt: '" + sTitle + "' ";
-		writeString += "Options: [";
-		for(String s : options){
-			writeString += ("'" + s + "', ");
-		}
-		writeString += "], " + numSelectable;
-		pw.write(writeString);
+		writeString = gson.toJson(prompt);
+		pw.write(writeString + "<EOF>");
 		while(!br.ready()){
 			try {
 				wait(10);
@@ -328,7 +326,7 @@ public class Hero extends EncounterActor {
 			writeString += ("'" + s + "', ");
 		}
 		writeString += "], " + numSelectable;
-		pw.write(writeString);
+		pw.write(writeString + "<EOF>");
 		while(!br.ready()){
 			try {
 				wait(10);

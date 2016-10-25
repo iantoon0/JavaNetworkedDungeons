@@ -11,7 +11,6 @@ public class JavaNetworkDungeonsProtocol {
 	Gson gson = new Gson();
 	PrintWriter output;
 	Campaign c;
-	boolean heroComing;
 	
 	public JavaNetworkDungeonsProtocol(PrintWriter out, Campaign C){
 		this.output = out;
@@ -24,8 +23,14 @@ public class JavaNetworkDungeonsProtocol {
 			processHero(input);
 		}
 		*/
-		if(input.contains("chat")){//recieved as "chat:language,contents"
-			TextMessage message = new TextMessage(input.substring(5, input.indexOf(",")), input.substring(input.indexOf(",")));
+		if(input.contains("chat")){//recieved as "chat:speaker,language,contents"
+			String sMessage = input.substring(5);
+			String speaker = sMessage.substring(0, sMessage.indexOf(","));
+			String notSpeaker = sMessage.substring(sMessage.indexOf(","));
+			String language = notSpeaker.substring(0, sMessage.indexOf(","));
+			String contents = notSpeaker.substring(sMessage.indexOf(","));
+			TextMessage message = new TextMessage(speaker, language, contents);
+			c.updateChatLog(message);
 		}
 		if(input.contains("party")){
 			c = gson.fromJson(input, Campaign.class);
