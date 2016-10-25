@@ -30,7 +30,9 @@ public class ClientThread extends Thread {
 			pw.write(writeString + "<EOF>");
 			while(!br.ready()){
 				try {
-					wait(10);
+					synchronized(this) {
+				        this.wait(10);
+					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

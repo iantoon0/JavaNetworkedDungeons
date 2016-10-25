@@ -34,7 +34,7 @@ public class JavaNetworkedDungeonsListener extends Thread {
 				EncounterActor actorFromThread = null;
 				boolean b = true;
 				JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(null,null);
-				while (b){
+				/*while (b){
 					actorFromThread = jndp.CreateActorFromJson(new BufferedReader( new InputStreamReader(clientSocket.getInputStream())).readLine());
 					if(actorFromThread.getClass().equals(Hero.class))
 					{
@@ -43,6 +43,7 @@ public class JavaNetworkedDungeonsListener extends Thread {
 					}
 				}
 				actorSocketMap.put(actorFromThread, clientSocket);
+				*/
 				clientThread.run();
 				serversocket.close();
 				System.out.print("Sleeping");
