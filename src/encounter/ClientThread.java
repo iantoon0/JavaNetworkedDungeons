@@ -12,6 +12,7 @@ public class ClientThread extends Thread {
 	Socket clientSocket;
 	Campaign c;
 	Gson gson = new Gson();
+	boolean bPlayerIsDM;
 	
 	public ClientThread(Socket clientSocket, Campaign c){
 		this.clientSocket = clientSocket;
@@ -27,7 +28,8 @@ public class ClientThread extends Thread {
 			temp.add("Player"); temp.add("DM");
 			Prompt p = new Prompt("Are you a player or a DM?", temp, 1);
 			writeString = gson.toJson(p);
-			pw.write(writeString + "<EOF>");
+			pw.println(writeString + "<EOF>");
+			System.out.println("Wrote " + writeString + " to client");
 			while(!br.ready()){
 				try {
 					synchronized(this) {
@@ -38,9 +40,11 @@ public class ClientThread extends Thread {
 				}
 			}
 			JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(pw,c);
-			String inputLine;
+			String inputLine = br.readLine();
+			bPlayerIsDM = (inputLine == "DM");
 			while (true){
 				while ((inputLine = br.readLine()) != null) {
+					System.out.println("Processed input!");
 			        jndp.processInput(inputLine, br);
 				}
 				jndp.outputCampaign(c);

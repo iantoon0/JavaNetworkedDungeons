@@ -308,7 +308,7 @@ public class Hero extends EncounterActor {
 		Gson gson = new Gson();
 		String writeString = new String();
 		writeString = gson.toJson(prompt);
-		pw.write(writeString + "<EOF>");
+		pw.print(writeString + "<EOF>");
 		while(!br.ready()){
 			try {
 				synchronized(this) {
@@ -328,7 +328,7 @@ public class Hero extends EncounterActor {
 			writeString += ("'" + s + "', ");
 		}
 		writeString += "], " + numSelectable;
-		pw.write(writeString + "<EOF>");
+		pw.print(writeString + "<EOF>");
 		while(!br.ready()){
 			try {
 				wait(10);

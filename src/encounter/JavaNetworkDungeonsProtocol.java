@@ -89,9 +89,9 @@ public class JavaNetworkDungeonsProtocol {
 		return rtn;
 	}
 	public void outputCampaign(Campaign c){
-		output.write(gson.toJson(c));
+		output.println(gson.toJson(c));
 	}
 	public void outputEncounter(Encounter e){
-		output.write(gson.toJson(e));
+		output.println(gson.toJson(e));
 	}
 }
