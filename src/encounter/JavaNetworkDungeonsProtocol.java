@@ -5,6 +5,8 @@ import com.google.gson.*;
 import encounter.Classes.*;
 
 import java.io.*;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.GZIPOutputStream;
 
 public class JavaNetworkDungeonsProtocol {
 	
@@ -23,7 +25,7 @@ public class JavaNetworkDungeonsProtocol {
 			processHero(input);
 		}
 		*/
-		if(input.contains("chat")){//recieved as "chat:speaker,language,contents"
+		if(input.contains("chat")){//received as "chat:speaker,language,contents"
 			String sMessage = input.substring(5);
 			String speaker = sMessage.substring(0, sMessage.indexOf(","));
 			String notSpeaker = sMessage.substring(sMessage.indexOf(","));
@@ -32,7 +34,7 @@ public class JavaNetworkDungeonsProtocol {
 			TextMessage message = new TextMessage(speaker, language, contents);
 			c.updateChatLog(message);
 		}
-		if(input.contains("party")){
+		else if(input.contains("party")){
 			c = gson.fromJson(input, Campaign.class);
 		}
 		else if(input.contains("encounterActors")){
@@ -89,9 +91,31 @@ public class JavaNetworkDungeonsProtocol {
 		return rtn;
 	}
 	public void outputCampaign(Campaign c){
-		output.println(gson.toJson(c));
+		
+		try {
+			output.println(/*compress*/(gson.toJson(c) + "<EOF>"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void outputDungeon(Dungeon d){
+		output.println("Sending Dungeon of size: " + d.size);
+		
 	}
 	public void outputEncounter(Encounter e){
 		output.println(gson.toJson(e));
 	}
+	public static String compress(String str) throws Exception {
+		if (str == null || str.length() == 0) {
+            return str;
+        }
+        ByteArrayOutputStream obj=new ByteArrayOutputStream();
+        GZIPOutputStream gzip = new GZIPOutputStream(obj);
+        gzip.write(str.getBytes());
+        gzip.close();
+        String outStr = obj.toString();
+        System.out.println("Output String length : " + outStr.length());
+        return outStr;
+     }
 }

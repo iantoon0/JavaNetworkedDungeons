@@ -12,6 +12,7 @@ public class Campaign {
 	public Time currentTime;
 	boolean bInEncounter;
 	public ArrayList<Dungeon> listDungeons;
+	public Dungeon currentDungeon;
 	public Campaign(){
 		listParty = new ArrayList<Hero>();
 	}

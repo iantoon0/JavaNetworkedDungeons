@@ -28,7 +28,6 @@ public class JavaNetworkedDungeonsListener extends Thread {
 			try {
 				int portNumber = 555;
 				serversocket = new ServerSocket(portNumber);
-				System.out.println(serversocket.getLocalPort());
 				Socket clientSocket = serversocket.accept();
 				ClientThread clientThread = new ClientThread(clientSocket, c);
 				EncounterActor actorFromThread = null;
@@ -44,9 +43,11 @@ public class JavaNetworkedDungeonsListener extends Thread {
 				}
 				actorSocketMap.put(actorFromThread, clientSocket);
 				*/
-				clientThread.run();
+				System.out.println("Running clientThread");
+				clientThread.start();
+				System.out.println("Closing serversocket");
 				serversocket.close();
-				System.out.print("Sleeping");
+				System.out.println("Sleeping");
 				sleep(1000);
 			} catch (IOException | InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -31,7 +31,7 @@ public class Dungeon {
 						dTile.RecursiveLightMethod(null, dTile.lightSources.get(i).iStrength +10 , dTile.lightSources.get(i).iStrength, dTile.lightSources.get(i), this, null, false); 
 						for(ArrayList<DungeonTile> dRow2 : dungeonMap){
 							for (DungeonTile dTile2 : dRow){
-								dTile2.lightLevelCalculated = false;
+								dTile2.bLightLevelCalculated = false;
 							}
 						}
 					}

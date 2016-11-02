@@ -2,6 +2,7 @@ package encounter;
 
 import java.net.*;
 import java.util.ArrayList;
+import java.util.zip.GZIPOutputStream;
 
 import com.google.gson.Gson;
 
@@ -19,6 +20,18 @@ public class ClientThread extends Thread {
 		this.c = c;
 		System.out.println("Created new ClientThread!");
 	}
+	public static String compress(String str) throws Exception {
+		if (str == null || str.length() == 0) {
+            return str;
+        }
+        ByteArrayOutputStream obj=new ByteArrayOutputStream();
+        GZIPOutputStream gzip = new GZIPOutputStream(obj);
+        gzip.write(str.getBytes());
+        gzip.close();
+        String outStr = obj.toString();
+        System.out.println("Output String length : " + outStr.length());
+        return outStr;
+     }
 	public void run(){
 		try {
 			PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -27,33 +40,37 @@ public class ClientThread extends Thread {
 			ArrayList<String> temp = new ArrayList<String>();
 			temp.add("Player"); temp.add("DM");
 			Prompt p = new Prompt("Are you a player or a DM?", temp, 1);
-			writeString = gson.toJson(p);
-			pw.println(writeString + "<EOF>");
+			writeString = gson.toJson(p) + "<EOF>";
+			//writeString = compress(writeString);
+			pw.println(writeString);
 			System.out.println("Wrote " + writeString + " to client");
-			while(!br.ready()){
-				try {
-					synchronized(this) {
-				        this.wait(10);
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			while(! br.ready()){
+				sleep(500);
+				System.out.println("Sleeping...");
 			}
 			JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(pw,c);
+			System.out.println("Reading response...");
 			String inputLine = br.readLine();
+			System.out.println("Response:" + inputLine);
 			bPlayerIsDM = (inputLine == "DM");
+			jndp.outputCampaign(c);
 			while (true){
-				while ((inputLine = br.readLine()) != null) {
-					System.out.println("Processed input!");
+				while (br.ready()) {
+					inputLine = br.readLine();
 			        jndp.processInput(inputLine, br);
+					System.out.println("Processed input!");
 				}
-				jndp.outputCampaign(c);
-				sleep(250);
+				
+				//System.out.println("Wrote Campaign to player");
+				sleep(3000);
 			}
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -10,12 +10,12 @@ public class DungeonTile {
 	public HashMap<Hero, Boolean> dictHeroVisibility;
 	public EncounterActor encounterActor;
 	int lightLevel; //0-3, Magic dark/Total dark/Dim/Bright
-	boolean wasSeen, wall, lightLevelCalculated;
+	boolean bWasSeen, bWall, bLightLevelCalculated, bIsDifficultTerrain;
 	public DungeonTile(Dungeon d, Point p){
 		dictHeroVisibility = new HashMap<Hero, Boolean>();
-		wall = false;
+		bWall = false;
 		lightSources = new ArrayList<LightSource>();
-		if(wall){
+		if(bWall){
 			contents = null;
 			n_Wallcontents = null;
 			e_Wallcontents = null;
@@ -27,7 +27,7 @@ public class DungeonTile {
 		//DETERMINE SURROUNDING POINTS HERE
 	}
 	public void RecursiveVisionMethod(LinkedList<Point> nextPoints, int visionLengthLeft, Hero h, Dungeon d, Point prevPoint, boolean diagAdd){
-		dictHeroVisibility.put(h, true); wasSeen = true;
+		dictHeroVisibility.put(h, true); bWasSeen = true;
 		int dx = 0;
 		int dy = 1;
 		if(prevPoint != null){
@@ -42,7 +42,7 @@ public class DungeonTile {
 			}
 		}
 		else{
-			if(wall){
+			if(bWall){
 				visionLengthLeft = 0;
 			}
 			else if(lightLevel == 0){
@@ -153,7 +153,7 @@ public class DungeonTile {
 			}
 		}
 		else{
-			if(!lightLevelCalculated){
+			if(!bLightLevelCalculated){
 
 				if (lightLevel + Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) < 3){
 					lightLevel += (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2);
@@ -165,7 +165,7 @@ public class DungeonTile {
 			else if(1 + Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) > lightLevel){
 				lightLevel = 1 + (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2);
 			}
-			if(wall || lightLevel == 0){
+			if(bWall || lightLevel == 0){
 				strengthLeft = 0;
 			}
 			else{
@@ -188,7 +188,7 @@ public class DungeonTile {
 					d.dungeonMap.get(p.x).get(p.y).RecursiveLightMethod(nextPoints, strengthLeft, startStrengthTotal, l, d, loc, diagAdd);
 				}
 			}
-			lightLevelCalculated = true;
+			bLightLevelCalculated = true;
 		}
 	}
 	private LinkedList<Point> getPointQueue(Point start, Point end){
