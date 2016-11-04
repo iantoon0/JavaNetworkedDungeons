@@ -37,8 +37,11 @@ public class ClientThread extends Thread {
 			PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			String writeString = new String();
+			
 			ArrayList<String> temp = new ArrayList<String>();
-			temp.add("Player"); temp.add("DM");
+			//temporary array list to hold Player or String
+			temp.add("Player"); 
+			temp.add("DM");
 			Prompt p = new Prompt("Are you a player or a DM?", temp, 1);
 			writeString = gson.toJson(p) + "<EOF>";
 			//writeString = compress(writeString);
