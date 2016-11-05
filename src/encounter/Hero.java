@@ -10,17 +10,63 @@ import java.util.*;
 import com.google.gson.Gson;
 
 public class Hero extends EncounterActor {
+	
+	//All-hero variables
 	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel, iHitDie, iTotalNumHitDice, iCurrentNumHitDice;
 	public int[] iArrayCurrentSpellSlots, iArrayMaxSpellSlots;
 	public boolean bInspiration;
 	public String sName, sRace, sClassName;
 	public ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
 	public ArrayList<String> listProficiencies, listCantripsKnown, listLanguages, listSkillProficiencies;
-	public HashMap<String, Integer> dictSkills;
+	public HashMap<String, Integer> dictSkills, dictClassLevels;
 	public HashMap<String, Boolean> dictFeats;
 	public HashMap<String, String> dictBackgroundTraits;
-	
 	ArrayList<Item> listInventory;
+	
+	//Barbarian variables
+	
+	
+	//Bard variables
+	
+	
+	//Cleric variables
+	String sDomain;
+	int iChannelDivinity;
+	int iMaxChannelDivinity;
+	
+	//Druid variables
+	
+	
+	//Fighter variables
+	public String sMartialArchetype;
+	public boolean bSecondWind;
+	public int iActionSurge, iMaxActionSurge, iIndomitable, iMaxIndomitable, iSuperiorityDice, iMaxSuperiorityDice, iSpellSlots, iMaxSpellSlots;
+	
+	//Monk variables
+	int iMaxKi, iCurrentKi, iMonkDie, iUnarmoredSpeed;
+	String sPath;
+	
+	//Paladin variables
+	
+	
+	//Ranger variables
+	
+	
+	//Rogue variables
+	
+	
+	//Sorcerer variables
+	String sorcerousOrigin;
+	int iCurrentSorceryPoints;
+	int iMaxSorceryPoints;
+	
+	//Warlock variables
+	
+	
+	//Wizard variables
+	
+	
+	
 		
 	public Hero(){
 		iNextLvlXP = 300;
@@ -181,6 +227,14 @@ public class Hero extends EncounterActor {
 	public void levelUp(Socket actorSocket) throws IOException{
 		iLevel++;
 		iNextLvlXP = Constants.XP_LEVELS[iLevel];
+		
+		
+		//*********************************************
+		//********CLASS-INDEPENDENT INCREASES**********
+		//*********************************************
+		
+		
+		
 		if ((iLevel - 1) % 4 == 0){
 			iProficiencyBonus++;
 		}
@@ -218,9 +272,25 @@ public class Hero extends EncounterActor {
 						break;
 					}
 				}
-			}
-			
+			}	
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		calculateSkillMod();
 	}
 	
