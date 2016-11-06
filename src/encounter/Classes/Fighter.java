@@ -6,9 +6,6 @@ import java.net.Socket;
 import encounter.Hero;
 
 public class Fighter extends Hero {
-	String sMartialArchetype;
-	boolean bSecondWind;
-	int iActionSurge, iMaxActionSurge, iIndomitable, iMaxIndomitable, iSuperiorityDice, iMaxSuperiorityDice, iSpellSlots, iMaxSpellSlots;
 	
 	public Fighter(){
 		sClassName = "Fighter";
