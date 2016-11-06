@@ -12,8 +12,9 @@ import com.google.gson.Gson;
 public class Hero extends EncounterActor {
 	
 	//All-hero variables
-	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel, iHitDie, iTotalNumHitDice, iCurrentNumHitDice;
+	public int iLevel, iXP, iProficiencyBonus, iNextLvlXP, iGold, iHPGainedPerLevel;
 	public int[] iArrayCurrentSpellSlots, iArrayMaxSpellSlots;
+	public ArrayList<Integer> iArrayMaxHitDice, iArrayCurrentHitDice;
 	public boolean bInspiration;
 	public String sName, sRace, sClassName;
 	public ArrayList<Spell> listSpellsKnown, listSpellsPrepared;
@@ -765,49 +766,6 @@ public class Hero extends EncounterActor {
 		}
 		iPassivePerception = dictSkills.get("perception") + 10;
 	}
-	public void shortRest(Socket actorSocket){
-		if (iXP >= iNextLvlXP){
-			try {
-				levelUp(actorSocket);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if (iHP < iMaxHP){
-			//prompt: spend hit dice
-			PrintWriter pw = null;
-			BufferedReader br = null;
-			try {
-				pw = new PrintWriter(actorSocket.getOutputStream());
-				br = new BufferedReader( new InputStreamReader(actorSocket.getInputStream()));
-				ArrayList<String> tempArrayList = new ArrayList<String>(); 
-				for (int i = 1; i <= iCurrentNumHitDice; i++){
-					tempArrayList.add(i + "d" + iHitDie);
-				}
-				String diceRolledString = prompt(pw, br, "Spend Hit Dice?", tempArrayList, 1);
-				int diceType = Integer.parseInt(diceRolledString.substring(2));
-				int diceNumber = Integer.parseInt(diceRolledString.substring(0,1));
-				DiceRoller dr = new DiceRoller();
-				iCurrentNumHitDice -= diceNumber;
-				switch (diceType) {
-				case 4: iHP += (diceNumber * iConMod) + dr.d4(diceNumber, sName, false);
-					break;
-				case 6: iHP += (diceNumber * iConMod) + dr.d6(diceNumber, sName, false);
-					break;
-				case 8: iHP += (diceNumber * iConMod) + dr.d8(diceNumber, sName, false);
-					break;
-				case 10: iHP += (diceNumber * iConMod) + dr.d10(diceNumber, sName, false);
-					break;
-				case 12: iHP += (diceNumber * iConMod) + dr.d12(diceNumber, sName, false);
-					break;
-				default:
-					break;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 	public String prompt(PrintWriter pw, BufferedReader br, String sTitle, ArrayList<String> options, int numSelectable) throws IOException{
 		Prompt prompt = new Prompt(sTitle, options, numSelectable);
 		Gson gson = new Gson();
@@ -843,9 +801,83 @@ public class Hero extends EncounterActor {
 		}
 		return br.readLine();
 	}
+	public void shortRest(Socket actorSocket){
+		if (iXP >= iNextLvlXP){
+			try {
+				levelUp(actorSocket);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (iHP < iMaxHP){
+			//prompt: spend hit dice
+			//TODO: redo prompting for hit dice with new system
+			PrintWriter pw = null;
+			BufferedReader br = null;
+			try {
+				pw = new PrintWriter(actorSocket.getOutputStream());
+				br = new BufferedReader( new InputStreamReader(actorSocket.getInputStream()));
+				ArrayList<String> tempArrayList = new ArrayList<String>(); 
+				for (int i = 0; i < iArrayCurrentHitDice.size(); i++){
+					tempArrayList.add(i + "d" + iArrayCurrentHitDice.get(i));
+				}
+				String diceRolledString = prompt(pw, br, "Spend Hit Dice?", tempArrayList, 1);
+				int diceType = Integer.parseInt(diceRolledString.substring(2));
+				int diceNumber = Integer.parseInt(diceRolledString.substring(0,1));
+				DiceRoller dr = new DiceRoller();
+				//iCurrentNumHitDice -= diceNumber;
+				switch (diceType) {
+				case 4: iHP += (diceNumber * iConMod) + dr.d4(diceNumber, sName, false);
+					break;
+				case 6: iHP += (diceNumber * iConMod) + dr.d6(diceNumber, sName, false);
+					break;
+				case 8: iHP += (diceNumber * iConMod) + dr.d8(diceNumber, sName, false);
+					break;
+				case 10: iHP += (diceNumber * iConMod) + dr.d10(diceNumber, sName, false);
+					break;
+				case 12: iHP += (diceNumber * iConMod) + dr.d12(diceNumber, sName, false);
+					break;
+				default:
+					break;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(dictClassLevels.get("Sorcerer") == 20){
+			if(iCurrentSorceryPoints + 4 >= iMaxSorceryPoints){
+				iCurrentSorceryPoints = iMaxSorceryPoints;
+			}
+			else{
+				iCurrentSorceryPoints += 4;
+			}
+		}
+		
+		iChannelDivinity = iMaxChannelDivinity;
+		
+		bSecondWind = true;
+		iActionSurge = iMaxActionSurge;
+		iSuperiorityDice = iMaxSuperiorityDice;
+
+		iCurrentKi = iMaxKi;
+	}
 	public void longRest(Socket actorSocket){
+		shortRest(actorSocket);
 		iHP = iMaxHP;
-		iCurrentNumHitDice = iTotalNumHitDice;
+		iArrayCurrentHitDice = iArrayMaxHitDice;
+		iArrayCurrentSpellSlots = iArrayMaxSpellSlots;
+		if(dictClassLevels.get("Sorcerer") != 20){
+			if(iCurrentSorceryPoints + 2 >= iMaxSorceryPoints){
+				iCurrentSorceryPoints = iMaxSorceryPoints;
+			}
+			else{
+				iCurrentSorceryPoints += 2;
+			}
+		}
+		iArrayCurrentSpellSlots = iArrayMaxSpellSlots;
+		iIndomitable = iMaxIndomitable;
+		iSpellSlots = iMaxSpellSlots;
+		
 	}
 	
 	public void determineActions(){
