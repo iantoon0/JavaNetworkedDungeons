@@ -8,6 +8,11 @@ import com.google.gson.Gson;
 
 import java.io.*;
 
+/* 	
+	-reads and processes the beginning information
+		-if the person is a player or DM
+*/
+
 public class ClientThread extends Thread {
 	
 	Socket clientSocket;
@@ -20,10 +25,13 @@ public class ClientThread extends Thread {
 		this.c = c;
 		System.out.println("Created new ClientThread!");
 	}
-	public static String compress(String str) throws Exception {
-		if (str == null || str.length() == 0) {
+	public static String compress(String str) throws Exception 
+	{
+		if (str == null || str.length() == 0) 
+		{
             return str;
         }
+		
         ByteArrayOutputStream obj=new ByteArrayOutputStream();
         GZIPOutputStream gzip = new GZIPOutputStream(obj);
         gzip.write(str.getBytes());
@@ -32,32 +40,43 @@ public class ClientThread extends Thread {
         System.out.println("Output String length : " + outStr.length());
         return outStr;
      }
-	public void run(){
+	public void run()
+	{
 		try {
 			PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(), true);
 			BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			String writeString = new String();
 			
 			ArrayList<String> temp = new ArrayList<String>();
-			//temporary array list to hold Player or String
+			//temporary array list to hold Player or DM
+			
 			temp.add("Player"); 
 			temp.add("DM");
+			
+			//prompts the user for their information
 			Prompt p = new Prompt("Are you a player or a DM?", temp, 1);
 			writeString = gson.toJson(p) + "<EOF>";
 			//writeString = compress(writeString);
 			pw.println(writeString);
 			System.out.println("Wrote " + writeString + " to client");
+			
 			while(! br.ready()){
 				sleep(500);
 				System.out.println("Sleeping...");
 			}
+			
 			JavaNetworkDungeonsProtocol jndp = new JavaNetworkDungeonsProtocol(pw,c);
 			System.out.println("Reading response...");
+			
 			String inputLine = br.readLine();
 			System.out.println("Response:" + inputLine);
+			
+			//variable to see if person is a DM
 			bPlayerIsDM = (inputLine == "DM");
+			
 			jndp.outputCampaign(c);
-			while (true){
+			while (true)
+			{
 				while (br.ready()) {
 					inputLine = br.readLine();
 			        jndp.processInput(inputLine, br);
