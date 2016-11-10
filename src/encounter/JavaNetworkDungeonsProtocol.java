@@ -2,8 +2,6 @@ package encounter;
 
 import com.google.gson.*;
 
-import encounter.Classes.*;
-
 import java.io.*;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
@@ -51,42 +49,7 @@ public class JavaNetworkDungeonsProtocol {
 	public EncounterActor CreateActorFromJson(String s){
 		EncounterActor rtn = null;
 		if (s.contains("className")){
-			if (s.contains("\"className\":\"Barbarian\"")){
-				rtn = gson.fromJson(s, Barbarian.class);
-			}
-			else if (s.contains("\"className\":\"Bard\"")){
-				rtn = gson.fromJson(s, Bard.class);
-			}
-			else if (s.contains("\"className\":\"Cleric\"")){
-				rtn = gson.fromJson(s, Cleric.class);
-			}
-			else if (s.contains("\"className\":\"Druid\"")){
-				rtn = gson.fromJson(s, Druid.class);
-			}
-			else if (s.contains("\"className\":\"Fighter\"")){
-				rtn = gson.fromJson(s, Fighter.class);
-			}
-			else if (s.contains("\"className\":\"Monk\"")){
-				rtn = gson.fromJson(s, Monk.class);
-			}
-			else if (s.contains("\"className\":\"Paladin\"")){
-				rtn = gson.fromJson(s, Paladin.class);
-			}
-			else if (s.contains("\"className\":\"Ranger\"")){
-				rtn = gson.fromJson(s, Ranger.class);
-			}
-			else if (s.contains("\"className\":\"Rogue\"")){
-				rtn = gson.fromJson(s, Rogue.class);
-			}
-			else if (s.contains("\"className\":\"Sorcerer\"")){
-				rtn = gson.fromJson(s, Sorcerer.class);
-			}
-			else if (s.contains("\"className\":\"Warlock\"")){
-				rtn = gson.fromJson(s, Warlock.class);
-			}
-			else if (s.contains("\"className\":\"Wizard\"")){
-				rtn = gson.fromJson(s, Wizard.class);
-			}
+			rtn = gson.fromJson(s, Hero.class);
 		}
 		return rtn;
 	}

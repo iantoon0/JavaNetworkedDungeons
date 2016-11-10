@@ -145,12 +145,13 @@ public class Hero extends EncounterActor {
 		}
 	}
 	
-	public Hero(String r){
+	public Hero(String r, String c){
 		iNextLvlXP = 300;
 		iLevel = 1;
 		iXP = 0;
 		iProficiencyBonus = 2;
 		sRace = r;
+		sClassName = c;
 		iArrayCurrentSpellSlots = new int[9];
 		iArrayMaxSpellSlots = new int[9];
 		listProficiencies = new ArrayList<String>();
@@ -165,59 +166,159 @@ public class Hero extends EncounterActor {
 		
 		calculateStatMod();
 		calculateSkillMod();
+		
+		
+		//**********************************
+		//**DETERMINE RACE CHARACTERISTICS**
+		//**********************************
+		
 		switch (sRace){
+		
+		
+		//DWARVES
 		case "hillDwarf": 
 			iCon += 2; iWis++; 
 			iHP++; iHPGainedPerLevel++;
 			break;
-			
 		case "mountainDwarf": 
 			iCon += 2; iStr += 2; 
 			listProficiencies.add("Light Armor"); listProficiencies.add("Medium Armor");
 			break;
 			
+		//ELVES	
 		case "highElf": 
 			iDex += 2; iInt++; 
-			
 			dictFeats.put("Darkvision", true); 
-			
 			listProficiencies.add("Longsword"); listProficiencies.add("Shortsword"); listProficiencies.add("Longbow"); listProficiencies.add("Shortbow");
 			break;
-			
 		case "darkElf": 
-			iDex += 2; iCha++; 
-			
+			iDex += 2; iCha++; 			
 			dictFeats.put("Darkvision", true); dictFeats.put("Superior Darkvision", true); 
-			dictFeats.put("Sunlight Sensitivity", true); dictFeats.put("Drow Magic", true); listCantripsKnown.add("Dancing Lights");
-			
-			listProficiencies.add("Rapier"); listProficiencies.add("Shortsword"); listProficiencies.add("Hand Crossbow");
-			
-			break;
-			
+			dictFeats.put("Sunlight Sensitivity", true); dictFeats.put("Drow Magic", true); listCantripsKnown.add("Dancing Lights");			
+			listProficiencies.add("Rapier"); listProficiencies.add("Shortsword"); listProficiencies.add("Hand Crossbow");			
+			break;			
 		case "woodElf": 
-			iDex += 2; iWis++; 
-			
+			iDex += 2; iWis++; 			
 			dictFeats.put("Darkvision", true); 
-			
 			listProficiencies.add("Longsword"); listProficiencies.add("Shortsword"); listProficiencies.add("Longbow"); listProficiencies.add("Shortbow");
 			break;
-		
+			
+		//HALFLING	
+		case "lightfootHalfling": 
+			break;
+		case "stoutHalfling": 
+			break;
+			
+		//HUMAN
 		case "human": 
 			iStr++; iCon++; iDex++; iWis++; iInt++; iCha++; 
-			
 			iMoveSpeed = 30;
-			
 			break;
 			
+		//DRAGONBORN
+		case "blackDragonborn": 
+			break;
+		case "blueDragonborn": 
+			break;
+		case "brassDraonborn": 
+			break;
+		case "bronzeDragonborn": 
+			break;
+		case "copperDragonborn": 
+			break;
+		case "goldDragonborn": 
+			break;
+		case "greenDragonborn": 
+			break;
+		case "redDragonborn": 
+			break;
+		case "silverDragonborn": 
+			break;
+		case "whiteDragonborn": 
+			break;
+		
+		//GNOME
+		case "forestGnome": 
+			break;
+		case "rockGnome": 
+			break;
+			
+		//HALF-ELVES
+		case "halfElf": 
+			break;
+			
+		//HALF-ORC 
+		case "halfOrc": 
+			break;
+			
+		//TIEFLING
 		case "tiefling": 
 			iCha += 2; iInt++; 
-			
 			dictFeats.put("Darkvision", true); dictFeats.put("Hellish Resistance", true); dictFeats.put("Infernal Legacy", true); 
 			listCantripsKnown.add("Thaumaturgy");
-			
 			break;
-			
 		}
+		
+		//***********************************
+		//**DETERMINE CLASS CHARACTERISTICS**
+		//***********************************
+		switch(sClassName){
+		case "Barbarian": 
+			break;
+		case "Bard": 
+			break;
+		case "Cleric": 
+			bSpellcaster = true;
+			iMaxHP = 8 + iConMod;
+			listProficiencies.add("Simple Weapons");
+			listProficiencies.add("Light Armor");
+			listProficiencies.add("Medium Armor");
+			listProficiencies.add("Shields");
+			break;
+		case "Druid": 
+			break;
+		case "Fighter": 
+		bSpellcaster = false;
+		iMaxHP = 10 + iConMod;
+		listProficiencies.add("Light Armor");
+		listProficiencies.add("Medium Armor");
+		listProficiencies.add("Heavy Armor");
+		listProficiencies.add("Shields");
+		listProficiencies.add("Simple Weapons");
+		listProficiencies.add("Martial Weapons");
+		dictFeats.put("Second Wind", true);
+			break;
+		case "Monk": 
+			bSpellcaster = false;
+			iMaxKi = 0;
+			iCurrentKi = 0;
+			iMonkDie = 4;
+			iMaxHP = 8 + iConMod;
+			dictFeats.put("Unarmored Defense", true);
+			dictFeats.put("Martial Arts", true);
+			break;
+		case "Paladin": 
+			break;
+		case "Ranger": 
+			break;
+		case "Rogue": 
+			break;
+		case "Sorcerer": 
+			bSpellcaster = true;
+			iMaxHP = 6 + iConMod;
+			listProficiencies.add("Daggers");
+			listProficiencies.add("Darts");
+			listProficiencies.add("Slings");
+			listProficiencies.add("Quarterstaffs");
+			listProficiencies.add("Light Crossbows");
+			break;
+		case "Warlock": 
+			break;
+		case "Wizard": 
+			break;
+		}
+		
+		
 	}
 
 	public void takeTurn(){

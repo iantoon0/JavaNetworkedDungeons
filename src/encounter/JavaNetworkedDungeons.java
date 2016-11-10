@@ -6,13 +6,12 @@ import com.google.gson.Gson;
 
 import java.io.*;
 import java.net.*;
-import encounter.Classes.*;
 
 public class JavaNetworkedDungeons {
 	public static void main(String[] args) throws UnknownHostException{
 		// TODO Auto-generated method stub
 		Campaign c = new Campaign();
-		Hero h = new Monk("tiefling");
+		Hero h = new Hero("tiefling", "Monk");
 		c.listParty.add(h);
 		Gson gson = new Gson();
 		System.out.println(gson.toJson(c));
