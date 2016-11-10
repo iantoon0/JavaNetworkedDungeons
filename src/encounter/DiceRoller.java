@@ -2,25 +2,56 @@ package encounter;
 
 import java.math.*;
 
-public class DiceRoller {
-	public int d20(int numberRolled, String playerName, boolean isHidden){
+public class DiceRoller 
+{
+	/* Why not do this? You'd only need the one method
+
+ 	public int dice(int dNumber, int numberRolled, String playerName, boolean isHidden)
+	{
+		int result = 0;
+		for (int i = 0; i < numberRolled; i++)
+		{
+			result += (int) Math.ceil(dNumber * Math.random());
+		}
+		
+		if(numberRolled == 1){
+			TextMessage t = new TextMessage("Server", "Common", playerName + " Rolled a " + result + " on a d" + dNumber + "!");
+		}
+		else{
+			TextMessage t = new TextMessage("Server", "Common", playerName + " Rolled a total of " + result + " out of " + numberRolled + " d" + dNumber + "!");
+		}
+		
+		return result;
+	}
+	
+			Thennnn in Hero you could put
+				iHP += (diceNumber * iConMod) + dr.dice(diceType, diceNumber, sName, false);
+			around line 830 and not have to use any cases
+	*/
+	
+	public int d20(int numberRolled, String playerName, boolean isHidden)
+	{
 		int result = 0;
 		for (int i = 0; i < numberRolled; i++){
 			result += (int) Math.ceil(20 * Math.random());
 		}
+		
 		if(numberRolled == 1){
 			TextMessage t = new TextMessage("Server", "Common", playerName + " Rolled a " + result + " on a d20!");
 		}
 		else{
 			TextMessage t = new TextMessage("Server", "Common", playerName + " Rolled a total of " + result + " out of " + numberRolled + " d20!");
 		}
+		
 		return result;
 	}
-	public int d4(int numberRolled, String playerName, boolean isHidden){
+	public int d4(int numberRolled, String playerName, boolean isHidden)
+	{
 		int result = 0;
 		for (int i = 0; i < numberRolled; i++){
 			result += (int) Math.ceil(4 * Math.random());
 		}
+		
 		if(numberRolled == 1){
 			TextMessage t = new TextMessage("Server", "Common", playerName + " Rolled a " + result + " on a d4!");
 		}
