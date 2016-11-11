@@ -927,20 +927,9 @@ public class Hero extends EncounterActor {
 				int diceNumber = Integer.parseInt(diceRolledString.substring(0,1));
 				DiceRoller dr = new DiceRoller();
 				//iCurrentNumHitDice -= diceNumber;
-				switch (diceType) {
-				case 4: iHP += (diceNumber * iConMod) + dr.d4(diceNumber, sName, false);
-					break;
-				case 6: iHP += (diceNumber * iConMod) + dr.d6(diceNumber, sName, false);
-					break;
-				case 8: iHP += (diceNumber * iConMod) + dr.d8(diceNumber, sName, false);
-					break;
-				case 10: iHP += (diceNumber * iConMod) + dr.d10(diceNumber, sName, false);
-					break;
-				case 12: iHP += (diceNumber * iConMod) + dr.d12(diceNumber, sName, false);
-					break;
-				default:
-					break;
-				}
+				
+				iHP += (diceNumber * iConMod) + dr.dice(diceType, diceNumber, sName, false);
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
