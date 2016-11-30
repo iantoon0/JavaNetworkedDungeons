@@ -2,10 +2,11 @@ package encounter;
 import java.util.*;
 
 public class Dungeon {
-	ArrayList<ArrayList<DungeonTile>> dungeonMap;
-	Encounter[] encounters;
-	int size;
+	public ArrayList<ArrayList<DungeonTile>> dungeonMap;
+	public Encounter[] encounters;
+	public int size;
 	public Dungeon(int s){
+		this.size = s;
 		dungeonMap = new ArrayList<ArrayList<DungeonTile>>(s);
 		for(int r = 0; r < s; r++){
 			dungeonMap.add(new ArrayList<DungeonTile>());

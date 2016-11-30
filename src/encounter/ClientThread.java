@@ -74,7 +74,7 @@ public class ClientThread extends Thread {
 			//variable to see if person is a DM
 			bPlayerIsDM = (inputLine == "DM");
 			
-			jndp.outputCampaign(c);
+			jndp.outputCampaign(c, bPlayerIsDM);
 			while (true)
 			{
 				while (br.ready()) {

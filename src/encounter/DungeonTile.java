@@ -9,8 +9,8 @@ public class DungeonTile {
 	public ArrayList<Object> contents, n_Wallcontents, e_Wallcontents, s_Wallcontents, w_WallContents;
 	public HashMap<Hero, Boolean> dictHeroVisibility;
 	public EncounterActor encounterActor;
-	int lightLevel; //0-3, Magic dark/Total dark/Dim/Bright
-	boolean bWasSeen, bWall, bLightLevelCalculated, bIsDifficultTerrain;
+	public int lightLevel; //0-3, Magic dark/Total dark/Dim/Bright
+	public boolean bWasSeen, bWall, bLightLevelCalculated, bIsDifficultTerrain;
 	public DungeonTile(Dungeon d, Point p){
 		dictHeroVisibility = new HashMap<Hero, Boolean>();
 		bWall = false;

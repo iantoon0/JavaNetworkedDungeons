@@ -2,6 +2,8 @@ package encounter;
 
 import com.google.gson.*;
 
+import encounter.sendableObjects.SendableCampaign;
+
 import java.io.*;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
@@ -53,10 +55,10 @@ public class JavaNetworkDungeonsProtocol {
 		}
 		return rtn;
 	}
-	public void outputCampaign(Campaign c){
+	public void outputCampaign(Campaign c, boolean bPlayerIsDM){
 		
 		try {
-			output.println(/*compress*/(gson.toJson(c) + "<EOF>"));
+			output.println(/*compress*/(gson.toJson(new SendableCampaign(c, bPlayerIsDM, null)) + "<EOF>"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -10,7 +10,7 @@ public class Campaign {
 	public ArrayList<Spell> listActiveSpells; 
 	public HashMap<String, ArrayList<TextMessage>> dictChatLog;
 	public Time currentTime;
-	boolean bInEncounter;
+	public boolean bInEncounter;
 	public ArrayList<Dungeon> listDungeons;
 	public Dungeon currentDungeon;
 	public Campaign(){
