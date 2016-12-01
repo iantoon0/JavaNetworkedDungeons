@@ -467,454 +467,509 @@ public class Hero extends EncounterActor {
 		//*********************************************
 		//*********CLASS-DEPENDENT INCREASES***********
 		//*********************************************
+		
 		ArrayList<String> tempArray = new ArrayList<String>();
 		tempArray.add("Barbarian");tempArray.add("Bard");tempArray.add("Cleric");tempArray.add("Druid");tempArray.add("Fighter");tempArray.add("Monk");tempArray.add("Paladin");tempArray.add("Ranger");tempArray.add("Rogue");tempArray.add("Sorcerer");tempArray.add("Warlock");tempArray.add("Wizard");
 		
 		String classToLevelUp = prompt(pw, br, "Choose a class to level up", tempArray, 1).get(0);
-		switch(sClassName){
-		case "Barbarian": 
-			dictClassLevels.put("Barbarian", dictClassLevels.get("Barbarian") + 1);
-			break;
+		switch(sClassName)
+		{
+			case "Barbarian": 
+				dictClassLevels.put("Barbarian", dictClassLevels.get("Barbarian") + 1);
+				break;
+				
+			case "Bard": 
+				dictClassLevels.put("Bard", dictClassLevels.get("Bard") + 1);
+				break;
 			
-		case "Bard": 
-			dictClassLevels.put("Bard", dictClassLevels.get("Bard") + 1);
-			break;
-		
-		case "Cleric": 
-			dictClassLevels.put("Cleric", dictClassLevels.get("Cleric") + 1);
-			switch(dictClassLevels.get("Cleric")){
+			case "Cleric": 
+				dictClassLevels.put("Cleric", dictClassLevels.get("Cleric") + 1);
+				switch(dictClassLevels.get("Cleric"))
+				{
+					case 2: 
+						dictFeats.put("Channel Divinity (1/rest)", true);
+						switch (sDomain)
+						{					
+							case "Knowledge Domain": 
+								dictFeats.put("Channel Divinity: Knowledge of the Ages", true);
+								break;
+							
+							case "Life Domain": 
+								dictFeats.put("Channel Divinity: Preserve Life", true);
+								break;
+							
+							case "Light Domain": 
+								dictFeats.put("Channel Divinity: Radiance of the Dawn", true);
+								break;
+								
+							case "Nature Domain": 
+								dictFeats.put("Channel Divinity: Charm Animals and Plants", true);
+								break;
+								
+							case "Tempest Domain": 
+								dictFeats.put("Channel Divinity: Destructive Wrath", true);
+								break;
+								
+							case "Trickery Domain": 
+								dictFeats.put("Channel Divinity: Invoke Duplicity", true);
+								break;
+							
+							case "War Domain": 
+								dictFeats.put("Channel Divinity: Guided Strike", true);
+								break;
+						}
+						break;
+						
+					case 5: dictFeats.put("Destroy Undead CR 1/2", true);
+						break;
+						
+					case 6: 
+						switch (sDomain)
+						{						
+							case "Knowledge Domain": 
+								dictFeats.put("Channel Divinity: Read Thought", true);
+								break;
+								
+							case "Life Domain": 
+								dictFeats.put("Channel Divinity: Blessed Health", true);
+								break;
+								
+							case "Light Domain": 
+								dictFeats.put("Improved Flare", true);
+								break;
+								
+							case "Nature Domain": 
+								dictFeats.put("Channel Divinity: Dampen Elements", true);
+								break;
+								
+							case "Tempest Domain": 
+								dictFeats.put("Channel Divinity: Thunderbolt Strike", true);
+								break;
+								
+							case "Trickery Domain": 
+								dictFeats.put("Channel Divinity: Cloak of Shadows", true);
+								break;
+								
+							case "War Domain": 
+								dictFeats.put("Channel Divinity: War God's Blessing", true);
+								break;
+						}
+						break;
+					case 8: 
+						switch (sDomain)
+						{
+							case "Knowledge Domain": 
+								dictFeats.put("Potent Spellcasting", true);
+								break;
+							
+							case "Life Domain": 
+								dictFeats.put("Divine Strike", true);
+								break;
+							
+							case "Light Domain": 
+								dictFeats.put("Potent Spellcasting", true);
+								break;
+							
+							case "Nature Domain": 
+								dictFeats.put("Divine Strike", true);
+								break;
+							
+							case "Tempest Domain": 
+								dictFeats.put("Divine Strike", true);
+								break;
+							
+							case "Trickery Domain": 
+								dictFeats.put("Divine Strike", true);
+								break;
+							
+							case "War Domain": 
+								dictFeats.put("Divine Strike", true);
+								break;
+						}
+						break;
+						
+					case 10: dictFeats.put("Divine Intervention", true);
+						break;
+						
+					case 17: 
+						switch (sDomain)
+						{
+							case "Knowledge Domain": 
+								dictFeats.put("Visions of the Past", true);
+								break;
+								
+							case "Life Domain": 
+								dictFeats.put("Supreme Healing", true);
+								break;
+								
+							case "Light Domain": 
+								dictFeats.put("Corona of Light", true);
+								break;
+								
+							case "Nature Domain": 
+								dictFeats.put("Master of Nature", true);
+								break;
+								
+							case "Tempest Domain": 
+								dictFeats.put("Stormborn", true);
+								break;
+							
+							case "Trickery Domain": 
+								dictFeats.put("Improved Duplicity", true);
+								break;
+							
+							case "War Domain": 
+								dictFeats.put("Avatar of Battle", true);
+								break;	
+						}
+						break;
+				}
+				break;
 			
-			case 2: 
-				dictFeats.put("Channel Divinity (1/rest)", true);
-				switch (sDomain){
+			case "Druid": 
+				dictClassLevels.put("Druid", dictClassLevels.get("Druid") + 1);
+				break;
 			
-				case "Knowledge Domain": 
-					dictFeats.put("Channel Divinity: Knowledge of the Ages", true);
-					break;
-				
-				case "Life Domain": 
-					dictFeats.put("Channel Divinity: Preserve Life", true);
-					break;
-				
-				case "Light Domain": 
-					dictFeats.put("Channel Divinity: Radiance of the Dawn", true);
-					break;
+			case "Fighter": 
+				dictClassLevels.put("Fighter", dictClassLevels.get("Fighter") + 1);
+				switch(dictClassLevels.get("Fighter")){
+					case 2:
+						dictFeats.put("Action Surge(one use)", true);
+						break;
+						
+					case 3:
+						switch(sMartialArchetype){
+						
+						case "Champion": 
+							dictFeats.put("Improved Critical", true);
+							break;
+							
+						case "Battle Master": 
+							dictFeats.put("Combat Superiority", true);
+							dictFeats.put("Student of War", true);
+							break;
+							
+						case "Eldritch Knight": 
+							dictFeats.put("Weapon Bond", true);
+							bSpellcaster = true;
+							break;
+						}
+						break;
 					
-				case "Nature Domain": 
-					dictFeats.put("Channel Divinity: Charm Animals and Plants", true);
-					break;
+					case 5:
+						dictFeats.put("Extra Attack", true);
+						break;
 					
-				case "Tempest Domain": 
-					dictFeats.put("Channel Divinity: Destructive Wrath", true);
-					break;
+					case 7:
+						switch(sMartialArchetype){
+						
+						case "Champion": 
+							dictFeats.put("Remarkable Athlete", true);
+							break;
+							
+						case "Battle Master": 
+							dictFeats.put("Know Your Enemy", true);
+							break;
+							
+						case "Eldritch Knight": 
+							dictFeats.put("War Magic", true);
+							break;
+						}
+						break;
 					
-				case "Trickery Domain": 
-					dictFeats.put("Channel Divinity: Invoke Duplicity", true);
-					break;
-				
-				case "War Domain": 
-					dictFeats.put("Channel Divinity: Guided Strike", true);
-					break;
-				
+					case 9:
+						dictFeats.put("Indomitable (one use)", true);
+						break;
+					
+					case 10:
+						switch(sMartialArchetype)
+						{
+							case "Champion": 
+								dictFeats.put("Additional Fighting Style", true);
+								break;
+								
+							case "Battle Master": 
+								dictFeats.put("Improved Combat Superiority", true);
+								break;
+								
+							case "Eldritch Knight": 
+								dictFeats.put("Eldritch Strike", true);
+								break;
+						}
+						break;
+	
+					case 15:
+						switch(sMartialArchetype)
+						{
+							case "Champion": 
+								dictFeats.put("Superior Critical", true);
+								break;
+								
+							case "Battle Master": 
+								dictFeats.put("Relentless", true);
+								break;
+								
+							case "Eldritch Knight": 
+								dictFeats.put("Arcane Charge", true);
+								break;
+						}
+						break;
+						
+					case 18:
+						switch(sMartialArchetype)
+						{
+							case "Champion": 
+								dictFeats.put("Survivor", true);
+								break;
+								
+							case "Eldritch Knight": 
+								dictFeats.put("Improved War Magic", true);
+								break;
+						}
+						break;
 				}
 				break;
-			case 5: dictFeats.put("Destroy Undead CR 1/2", true);
-				break;
-			case 6: 
-				switch (sDomain){
-				
-				case "Knowledge Domain": 
-					dictFeats.put("Channel Divinity: Read Thought", true);
-					break;
-					
-				case "Life Domain": 
-					dictFeats.put("Channel Divinity: Blessed Health", true);
-					break;
-					
-				case "Light Domain": 
-					dictFeats.put("Improved Flare", true);
-					break;
-					
-				case "Nature Domain": 
-					dictFeats.put("Channel Divinity: Dampen Elements", true);
-					break;
-					
-				case "Tempest Domain": 
-					dictFeats.put("Channel Divinity: Thunderbolt Strike", true);
-					break;
-					
-				case "Trickery Domain": 
-					dictFeats.put("Channel Divinity: Cloak of Shadows", true);
-					break;
-					
-				case "War Domain": 
-					dictFeats.put("Channel Divinity: War God's Blessing", true);
-					break;
-				}
-				break;
-			case 8: 
-				switch (sDomain){
 			
-				case "Knowledge Domain": 
-					dictFeats.put("Potent Spellcasting", true);
-					break;
-				
-				case "Life Domain": 
-					dictFeats.put("Divine Strike", true);
-					break;
-				
-				case "Light Domain": 
-					dictFeats.put("Potent Spellcasting", true);
-					break;
-				
-				case "Nature Domain": 
-					dictFeats.put("Divine Strike", true);
-					break;
-				
-				case "Tempest Domain": 
-					dictFeats.put("Divine Strike", true);
-					break;
-				
-				case "Trickery Domain": 
-					dictFeats.put("Divine Strike", true);
-					break;
-				
-				case "War Domain": 
-					dictFeats.put("Divine Strike", true);
-					break;
+			case "Monk": 
+				dictClassLevels.put("Monk", dictClassLevels.get("Monk") + 1);
+				iMaxKi = dictClassLevels.get("Monk");
+				switch (dictClassLevels.get("Monk"))
+				{
+					case 2: dictFeats.put("Unarmored Movement", true); iUnarmoredSpeed = 10;
+						break;
+					
+					case 3: /*Prompt: Choose path*/
+						ArrayList<String> tempArrayList = new ArrayList<String>(); tempArrayList.add("Way of the Open Hand"); tempArrayList.add("Way of Shadows"); tempArrayList.add("Way of the Four Elements");
+						prompt(pw, br, "Choose A Path", tempArrayList, 1);
+						dictFeats.put("Deflect Missiles", true); 
+						break;
+					
+					case 4: dictFeats.put("Slow Fall", true);
+						break;
+					
+					case 5: dictFeats.put("Extra Attack", true); dictFeats.put("Stunning Strike", true); iMonkDie = 6; 
+						break;
+					
+					case 6: dictFeats.put("Ki-Empowered Strikes", true); iUnarmoredSpeed = 15;
+						break;
+					
+					case 7: dictFeats.put("Evasion", true); dictFeats.put("Stillness of Mind", true);
+						break;
+					
+					case 8: break;
+					
+					case 9: break;
+					
+					case 10: dictFeats.put("Purity of Body", true); iUnarmoredSpeed = 20; 
+						break;
+					
+					case 11: iMonkDie = 8; 
+						break;
+					
+					case 12: break;
+					
+					case 13: dictFeats.put("Tongue of the Sun And Moon", true);
+						break;
+					
+					case 14: iUnarmoredSpeed = 25;
+						break;
+					
+					case 15: dictFeats.put("Timeless Body", true);
+						break;
+					
+					case 16: break;
+					
+					case 17: iMonkDie = 10; 
+						break;
+					
+					case 18: iUnarmoredSpeed = 30; dictFeats.put("Empty Body", true);
+						break;
+					
+					case 19: break;
+					
+					case 20: dictFeats.put("Perfect Self", true);
+						break;
 				}
+				switch (sPath)
+				{
+					case "Way of the Open Hand":
+						switch (dictClassLevels.get("Monk"))
+						{
+							case 3: dictFeats.put("Open Hand Technique", true);
+								break;
+							
+							case 6: dictFeats.put("Wholeness of Body", true);
+								break;
+							
+							case 11: dictFeats.put("Tranquility", true);
+								break;
+							
+							case 17: dictFeats.put("Quivering Palm", true);
+								break;
+						}
+						break;
+					case "Way of Shadow": 
+						switch (dictClassLevels.get("Monk"))
+						{
+							case 3: dictFeats.put("Shadow Arts", true);
+								break;
+							
+							case 6: dictFeats.put("Shadow Step", true); 
+								break;
+							
+							case 11: dictFeats.put("Cloak of Shadows", true);
+								break;
+							
+							case 17: dictFeats.put("Opportunist", true);
+								break;
+						}
+						break;
+					case "Way of the Four Elements": 
+						switch (dictClassLevels.get("Monk"))
+						{
+							case 3: dictFeats.put("Elemental Attunement", true);
+								ArrayList<String> tempArrayList = new ArrayList<String>(); 
+								tempArrayList.add("Fangs of the Fire Snake"); 
+								tempArrayList.add("Fist of Four Thunders"); 
+								tempArrayList.add("Fist of Unbroken Air"); 
+								tempArrayList.add("Rush of the Gale Spirits");
+								tempArrayList.add("Shape the Flowing River"); 
+								tempArrayList.add("Sweeping Cinder Strike");
+								tempArrayList.add("Water Whip");
+								prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
+								break;
+							
+							case 6: tempArrayList = new ArrayList<String>();
+								tempArrayList.add("Clench of the North Wind"); 
+								tempArrayList.add("Gong of the Summit"); 
+								tempArrayList.add("Fangs of the Fire Snake"); 
+								tempArrayList.add("Fist of Four Thunders"); 
+								tempArrayList.add("Fist of Unbroken Air"); 
+								tempArrayList.add("Rush of the Gale Spirits");
+								tempArrayList.add("Shape the Flowing River"); 
+								tempArrayList.add("Sweeping Cinder Strike");
+								tempArrayList.add("Water Whip");
+							prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
+								break;
+							
+							case 11: tempArrayList = new ArrayList<String>();
+								tempArrayList.add("Eternal Mountain Defense"); 
+								tempArrayList.add("Flames of the Phoenix");
+								tempArrayList.add("Mist Stance"); 
+								tempArrayList.add("Ride the Wind");
+								tempArrayList.add("Clench of the North Wind"); 
+								tempArrayList.add("Gong of the Summit"); 
+								tempArrayList.add("Fangs of the Fire Snake"); 
+								tempArrayList.add("Fist of Four Thunders"); 
+								tempArrayList.add("Fist of Unbroken Air"); 
+								tempArrayList.add("Rush of the Gale Spirits");
+								tempArrayList.add("Shape the Flowing River"); 
+								tempArrayList.add("Sweeping Cinder Strike");
+								tempArrayList.add("Water Whip");
+								prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
+								break;
+							
+							case 17: tempArrayList = new ArrayList<String>();
+								tempArrayList.add("Breath of Winter"); 
+								tempArrayList.add("River of Hungry Flame");
+								tempArrayList.add("Wave of Rolling Earth");
+								tempArrayList.add("Eternal Mountain Defense"); 
+								tempArrayList.add("Flames of the Phoenix");
+								tempArrayList.add("Mist Stance"); 
+								tempArrayList.add("Ride the Wind");
+								tempArrayList.add("Clench of the North Wind"); 
+								tempArrayList.add("Gong of the Summit"); 
+								tempArrayList.add("Fangs of the Fire Snake"); 
+								tempArrayList.add("Fist of Four Thunders"); 
+								tempArrayList.add("Fist of Unbroken Air"); 
+								tempArrayList.add("Rush of the Gale Spirits");
+								tempArrayList.add("Shape the Flowing River"); 
+								tempArrayList.add("Sweeping Cinder Strike");
+								tempArrayList.add("Water Whip");
+								prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
+								break;
+							}	//ends switch (dictClassLevels.get("Monk"))
+							break;
+				}	//ends switch (sPath)
 				break;
-			case 10: dictFeats.put("Divine Intervention", true);
+			
+			case "Paladin": 
+				dictClassLevels.put("Paladin", dictClassLevels.get("Paladin") + 1);
 				break;
-			case 17: 
-				switch (sDomain){
-				case "Knowledge Domain": 
-					dictFeats.put("Visions of the Past", true);
-					break;
-					
-				case "Life Domain": 
-					dictFeats.put("Supreme Healing", true);
-					break;
-					
-				case "Light Domain": 
-					dictFeats.put("Corona of Light", true);
-					break;
-					
-				case "Nature Domain": 
-					dictFeats.put("Master of Nature", true);
-					break;
-					
-				case "Tempest Domain": 
-					dictFeats.put("Stormborn", true);
-					break;
-				
-				case "Trickery Domain": 
-					dictFeats.put("Improved Duplicity", true);
-					break;
-				
-				case "War Domain": 
-					dictFeats.put("Avatar of Battle", true);
-					break;	
-				}
+			
+			case "Ranger": 
+				dictClassLevels.put("Ranger", dictClassLevels.get("Ranger") + 1);
 				break;
-			}
-			break;
-		
-		case "Druid": 
-			dictClassLevels.put("Druid", dictClassLevels.get("Druid") + 1);
-			break;
-		
-		case "Fighter": 
-			dictClassLevels.put("Fighter", dictClassLevels.get("Fighter") + 1);
-			switch(dictClassLevels.get("Fighter")){
-				case 2:
-					dictFeats.put("Action Surge(one use)", true);
-					break;
+			
+			case "Rogue": 
+				dictClassLevels.put("Rogue", dictClassLevels.get("Rogue") + 1);
+				break;
+			
+			case "Sorcerer": 
+				dictClassLevels.put("Sorcerer", dictClassLevels.get("Sorcerer") + 1);
+	
+				iMaxSorceryPoints = iLevel;
+				switch(dictClassLevels.get("Sorcerer"))
+				{
+					case 2:
+						dictFeats.put("Font Of Magic", true);
+						break;
 					
-				case 3:
-					switch(sMartialArchetype){
+					case 3:
+						dictFeats.put("metamagic", true);
+						break;
 					
-					case "Champion": 
-						dictFeats.put("Improved Critical", true);
+					case 6:
+						if(sorcerousOrigin.equals("draconic")){
+							dictFeats.put("Elemental Affinity", true);
+						}
+						else if(sorcerousOrigin.equals("Wild Magic")){
+							
+							dictFeats.put("Bend Luck", true);
+						}
+						break;
+					
+					case 10:
+						dictFeats.put("+1 to metamagic", true);
 						break;
 						
-					case "Battle Master": 
-						dictFeats.put("Combat Superiority", true);
-						dictFeats.put("Student of War", true);
+					case 14:
+						if(sorcerousOrigin.equals("draconic")){
+							dictFeats.put("Dragon Wings", true);
+						}
+						else if(sorcerousOrigin.equals("wild magic")){
+							dictFeats.put("Controlled Chaos", true);
+						}
 						break;
-						
-					case "Eldritch Knight": 
-						dictFeats.put("Weapon Bond", true);
-						bSpellcaster = true;
-						break;
-					}
-					break;
-				
-				case 5:
-					dictFeats.put("Extra Attack", true);
-					break;
-				
-				case 7:
-					switch(sMartialArchetype){
 					
-					case "Champion": 
-						dictFeats.put("Remarkable Athlete", true);
+					case 17:
+						dictFeats.put("+1 to metamagic", true);
 						break;
 						
-					case "Battle Master": 
-						dictFeats.put("Know Your Enemy", true);
+					case 18:
+						if(sorcerousOrigin.equals("draconic")){
+							dictFeats.put("Draconic Presence", true);
+						}
+						else if(sorcerousOrigin.equals("wild magic")){
+							dictFeats.put("Spell Bombardment", true);
+						}
 						break;
-						
-					case "Eldritch Knight": 
-						dictFeats.put("War Magic", true);
-						break;
-					}
-					break;
-				
-				case 9:
-					dictFeats.put("Indomitable (one use)", true);
-					break;
-				
-				case 10:
-					switch(sMartialArchetype){
 					
-					case "Champion": 
-						dictFeats.put("Additional Fighting Style", true);
+					case 20:
+						dictFeats.put("Sorcerous Restoration", true);
 						break;
-						
-					case "Battle Master": 
-						dictFeats.put("Improved Combat Superiority", true);
-						break;
-						
-					case "Eldritch Knight": 
-						dictFeats.put("Eldritch Strike", true);
-						break;
-					}
-					break;
-
-				case 15:
-					switch(sMartialArchetype){
-					
-					case "Champion": 
-						dictFeats.put("Superior Critical", true);
-						break;
-						
-					case "Battle Master": 
-						dictFeats.put("Relentless", true);
-						break;
-						
-					case "Eldritch Knight": 
-						dictFeats.put("Arcane Charge", true);
-						break;
-					}
-					break;
-				case 18:
-					switch(sMartialArchetype){
-					
-					case "Champion": 
-						dictFeats.put("Survivor", true);
-						break;
-						
-					case "Eldritch Knight": 
-						dictFeats.put("Improved War Magic", true);
-						break;
-					}
-					break;
-			}
-			break;
-		
-		case "Monk": 
-			dictClassLevels.put("Monk", dictClassLevels.get("Monk") + 1);
-			iMaxKi = dictClassLevels.get("Monk");
-			switch (dictClassLevels.get("Monk")){
-			case 2: dictFeats.put("Unarmored Movement", true); iUnarmoredSpeed = 10;
-				break;
-			case 3: /*Prompt: Choose path*/
-				ArrayList<String> tempArrayList = new ArrayList<String>(); tempArrayList.add("Way of the Open Hand"); tempArrayList.add("Way of Shadows"); tempArrayList.add("Way of the Four Elements");
-				prompt(pw, br, "Choose A Path", tempArrayList, 1);
-				dictFeats.put("Deflect Missiles", true); 
-				break;
-			case 4: dictFeats.put("Slow Fall", true);
-				break;
-			case 5: dictFeats.put("Extra Attack", true); dictFeats.put("Stunning Strike", true); iMonkDie = 6; 
-				break;
-			case 6: dictFeats.put("Ki-Empowered Strikes", true); iUnarmoredSpeed = 15;
-				break;
-			case 7: dictFeats.put("Evasion", true); dictFeats.put("Stillness of Mind", true);
-				break;
-			case 8: break;
-			case 9: break;
-			case 10: dictFeats.put("Purity of Body", true); iUnarmoredSpeed = 20; 
-				break;
-			case 11: iMonkDie = 8; 
-				break;
-			case 12: break;
-			case 13: dictFeats.put("Tongue of the Sun And Moon", true);
-				break;
-			case 14: iUnarmoredSpeed = 25;
-				break;
-			case 15: dictFeats.put("Timeless Body", true);
-				break;
-			case 16: break;
-			case 17: iMonkDie = 10; 
-				break;
-			case 18: iUnarmoredSpeed = 30; dictFeats.put("Empty Body", true);
-				break;
-			case 19: break;
-			case 20: dictFeats.put("Perfect Self", true);
-				break;
-			}
-			switch (sPath){
-			case "Way of the Open Hand":
-				switch (dictClassLevels.get("Monk")){
-				case 3: dictFeats.put("Open Hand Technique", true);
-					break;
-				case 6: dictFeats.put("Wholeness of Body", true);
-					break;
-				case 11: dictFeats.put("Tranquility", true);
-					break;
-				case 17: dictFeats.put("Quivering Palm", true);
-					break;
 				}
 				break;
-			case "Way of Shadow": 
-				switch (dictClassLevels.get("Monk")){
-				case 3: dictFeats.put("Shadow Arts", true);
-					break;
-				case 6: dictFeats.put("Shadow Step", true); 
-					break;
-				case 11: dictFeats.put("Cloak of Shadows", true);
-					break;
-				case 17: dictFeats.put("Opportunist", true);
-					break;
-				}
+			
+			case "Warlock": 
+				dictClassLevels.put("Warlock", dictClassLevels.get("Warlock") + 1);
 				break;
-			case "Way of the Four Elements": 
-				switch (dictClassLevels.get("Monk")){
-				case 3: dictFeats.put("Elemental Attunement", true);
-					ArrayList<String> tempArrayList = new ArrayList<String>(); 
-					tempArrayList.add("Fangs of the Fire Snake"); tempArrayList.add("Fist of Four Thunders"); 
-					tempArrayList.add("Fist of Unbroken Air"); tempArrayList.add("Rush of the Gale Spirits");
-					tempArrayList.add("Shape the Flowing River"); tempArrayList.add("Sweeping Cinder Strike");
-					tempArrayList.add("Water Whip");
-					prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
-					break;
-				case 6: tempArrayList = new ArrayList<String>();
-				tempArrayList.add("Clench of the North Wind"); tempArrayList.add("Gong of the Summit"); 
-				tempArrayList.add("Fangs of the Fire Snake"); tempArrayList.add("Fist of Four Thunders"); 
-				tempArrayList.add("Fist of Unbroken Air"); tempArrayList.add("Rush of the Gale Spirits");
-				tempArrayList.add("Shape the Flowing River"); tempArrayList.add("Sweeping Cinder Strike");
-				tempArrayList.add("Water Whip");
-				prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
-					break;
-				case 11: tempArrayList = new ArrayList<String>();
-				tempArrayList.add("Eternal Mountain Defense"); tempArrayList.add("Flames of the Phoenix");
-				tempArrayList.add("Mist Stance"); tempArrayList.add("Ride the Wind");
-				tempArrayList.add("Clench of the North Wind"); tempArrayList.add("Gong of the Summit"); 
-				tempArrayList.add("Fangs of the Fire Snake"); tempArrayList.add("Fist of Four Thunders"); 
-				tempArrayList.add("Fist of Unbroken Air"); tempArrayList.add("Rush of the Gale Spirits");
-				tempArrayList.add("Shape the Flowing River"); tempArrayList.add("Sweeping Cinder Strike");
-				tempArrayList.add("Water Whip");
-				prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
-					break;
-				case 17: tempArrayList = new ArrayList<String>();
-				tempArrayList.add("Breath of Winter"); tempArrayList.add("River of Hungry Flame");
-				tempArrayList.add("Wave of Rolling Earth");
-				tempArrayList.add("Eternal Mountain Defense"); tempArrayList.add("Flames of the Phoenix");
-				tempArrayList.add("Mist Stance"); tempArrayList.add("Ride the Wind");
-				tempArrayList.add("Clench of the North Wind"); tempArrayList.add("Gong of the Summit"); 
-				tempArrayList.add("Fangs of the Fire Snake"); tempArrayList.add("Fist of Four Thunders"); 
-				tempArrayList.add("Fist of Unbroken Air"); tempArrayList.add("Rush of the Gale Spirits");
-				tempArrayList.add("Shape the Flowing River"); tempArrayList.add("Sweeping Cinder Strike");
-				tempArrayList.add("Water Whip");
-				prompt(pw, br, "Choose an Elemental Discipline", tempArrayList, 1);
-					break;
-				}
+			
+			case "Wizard": 
+				dictClassLevels.put("Wizard", dictClassLevels.get("Wizard") + 1);
 				break;
-			}
-			break;
-		
-		case "Paladin": 
-			dictClassLevels.put("Paladin", dictClassLevels.get("Paladin") + 1);
-			break;
-		
-		case "Ranger": 
-			dictClassLevels.put("Ranger", dictClassLevels.get("Ranger") + 1);
-			break;
-		
-		case "Rogue": 
-			dictClassLevels.put("Rogue", dictClassLevels.get("Rogue") + 1);
-			break;
-		
-		case "Sorcerer": 
-			dictClassLevels.put("Sorcerer", dictClassLevels.get("Sorcerer") + 1);
-
-			iMaxSorceryPoints = iLevel;
-			switch(dictClassLevels.get("Sorcerer")){
-			case 2:
-				dictFeats.put("Font Of Magic", true);
-				break;
-			case 3:
-				dictFeats.put("metamagic", true);
-				break;
-			case 6:
-				if(sorcerousOrigin.equals("draconic")){
-					dictFeats.put("Elemental Affinity", true);
-				}
-				else if(sorcerousOrigin.equals("Wild Magic")){
-					
-					dictFeats.put("Bend Luck", true);
-				}
-				break;
-			case 10:
-				dictFeats.put("+1 to metamagic", true);
-				break;
-				
-			case 14:
-				if(sorcerousOrigin.equals("draconic")){
-					dictFeats.put("Dragon Wings", true);
-				}
-				else if(sorcerousOrigin.equals("wild magic")){
-					dictFeats.put("Controlled Chaos", true);
-				}
-				break;
-			case 17:
-				dictFeats.put("+1 to metamagic", true);
-				break;
-				
-			case 18:
-				if(sorcerousOrigin.equals("draconic")){
-					dictFeats.put("Draconic Presence", true);
-				}
-				else if(sorcerousOrigin.equals("wild magic")){
-					dictFeats.put("Spell Bombardment", true);
-				}
-				break;
-			case 20:
-				dictFeats.put("Sorcerous Restoration", true);
-				break;
+			
 		}
-		break;
-		
-		case "Warlock": 
-			dictClassLevels.put("Warlock", dictClassLevels.get("Warlock") + 1);
-			break;
-		
-		case "Wizard": 
-			dictClassLevels.put("Wizard", dictClassLevels.get("Wizard") + 1);
-			break;
-		
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		calculateSkillMod();
 	}
