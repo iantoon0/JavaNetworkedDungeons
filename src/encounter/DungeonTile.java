@@ -153,10 +153,18 @@ public class DungeonTile {
 			}
 		}
 		else{
+			if(bLightLevelCalculated){
+				if (Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) < 3){
+					lightLevel = (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2);
+				}
+				else{
+					lightLevel = 3;
+				}
+			}
 			if(!bLightLevelCalculated){
 
-				if (lightLevel + Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) < 3){
-					lightLevel += (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2);
+				if (Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2) < 3){
+					lightLevel = (int) Math.ceil(((double)strengthLeft/(double)startStrengthTotal) * 2);
 				}
 				else{
 					lightLevel = 3;
@@ -187,6 +195,9 @@ public class DungeonTile {
 					
 					d.dungeonMap.get(p.x).get(p.y).RecursiveLightMethod(nextPoints, strengthLeft, startStrengthTotal, l, d, loc, diagAdd);
 				}
+			}
+			if(lightLevel > 3){
+				lightLevel = 3;
 			}
 			bLightLevelCalculated = true;
 		}
